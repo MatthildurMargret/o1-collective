@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  --bg: #F4F1EB;
+  --surface: #FDFCF9;
+  --border: #DDD9CF;
+  --text-1: #1A1815;
+  --text-2: #6B6760;
+  --text-3: #A8A49C;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-1);
+}
