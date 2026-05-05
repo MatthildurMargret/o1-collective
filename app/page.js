@@ -46,13 +46,13 @@ function Hero() {
           the next chapter of tech.
         </h1>
         <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-          <a href="mailto:community@o1-collective.com" style={{
+          <Link href="/apply" style={{
             display: 'inline-block', padding: '13px 28px',
             background: '#1A1815', color: '#F4F1EB',
             fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
           }}>
             Apply for membership
-          </a>
+          </Link>
           <Link href="/directory" style={{ fontSize: 13, color: '#A8A49C', textDecoration: 'none' }}>
             Member login →
           </Link>
@@ -202,14 +202,13 @@ function Apply() {
         <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.7, margin: '0 0 48px', maxWidth: 400 }}>
           Membership is by application. We review each one personally and respond within two weeks.
         </p>
-        <a href="mailto:community@o1-collective.com?subject=Membership application" style={{
+        <Link href="/apply" style={{
           display: 'inline-block', padding: '13px 28px',
           border: '1px solid #3D3A34', color: '#F4F1EB',
           fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
-        }}
-          onMouseEnter={undefined}>
+        }}>
           Apply →
-        </a>
+        </Link>
       </div>
     </section>
   )
