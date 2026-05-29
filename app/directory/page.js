@@ -1,36 +1,18 @@
 'use client'
 
 import { useEffect, useLayoutEffect, useState, useMemo, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { createClient } from '../../lib/supabase'
 
-// ─── sample sidebar data ────────────────────────────────────────────────────
+function formatEventDate(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00')
+  return {
+    month: d.toLocaleDateString('en-US', { month: 'short' }),
+    day: d.getDate(),
+  }
+}
 
-const EVENTS = [
-  { date: 'Apr 24', day: 'Thu', title: 'Founders Dinner', location: 'San Francisco', spots: 'Invite only' },
-  { date: 'May 6', day: 'Wed', title: 'LP + Operator Mixer', location: 'New York', spots: '8 spots left' },
-  { date: 'May 14', day: 'Thu', title: 'AI in the Enterprise', location: 'Remote', spots: 'Open' },
-  { date: 'May 22', day: 'Fri', title: 'Summer Kickoff', location: 'San Francisco', spots: '4 spots left' },
-]
-
-const ADVISORS = [
-  { name: 'Cal Henderson', topic: 'Scaling engineering orgs', company: 'Slack' },
-  { name: 'Anna Piñol', topic: 'Early-stage fundraising', company: 'NFX' },
-  { name: 'Damir Vrabac', topic: 'GTM for deep tech', company: 'Valar Labs' },
-  { name: 'James Green', topic: 'Enterprise sales strategy', company: 'CRV' },
-]
-
-const RAISING = [
-  { name: 'Alfred Wahlforss', round: 'Seed', amount: '$3M', company: 'Listen Labs' },
-  { name: 'Jesse Heikkila', round: 'Pre-Seed', amount: '$1.5M', company: 'Failup Ventures' },
-  { name: 'Jimmy Gould', round: 'Series A', amount: '$12M', company: 'Stealth' },
-]
-
-const JOBS = [
-  { title: 'Head of Product', company: 'Listen Labs', location: 'San Francisco', type: 'Full-time' },
-  { title: 'Staff Engineer', company: 'Sana', location: 'Remote', type: 'Full-time' },
-  { title: 'Founding Designer', company: 'Stealth (YC W25)', location: 'SF / Remote', type: 'Full-time' },
-  { title: 'Chief of Staff', company: 'Valar Labs', location: 'San Francisco', type: 'Full-time' },
-]
 
 // ─── directory helpers ───────────────────────────────────────────────────────
 
@@ -104,14 +86,24 @@ function MemberRow({ member, isOpen, onToggle }) {
                 ? <p style={{ fontSize: 13, lineHeight: 1.7, color: '#6B6760', margin: 0 }}>{member.description}</p>
                 : <p style={{ fontSize: 13, fontStyle: 'italic', color: '#C0BCB4', margin: 0 }}>Bio coming soon.</p>}
             </div>
-            {member.linkedin && (
-              <a href={member.linkedin} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}
-                style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#A8A49C', textDecoration: 'none', flexShrink: 0 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>
-                <LinkedInIcon />LinkedIn
-              </a>
-            )}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0, alignItems: 'flex-end' }}>
+              {member.email && (
+                <a href={`mailto:${member.email}`} onClick={(e) => e.stopPropagation()}
+                  style={{ fontSize: 12, color: '#A8A49C', textDecoration: 'none' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>
+                  {member.email}
+                </a>
+              )}
+              {member.linkedin && (
+                <a href={member.linkedin} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}
+                  style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#A8A49C', textDecoration: 'none' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>
+                  <LinkedInIcon />LinkedIn
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -210,78 +202,83 @@ function SidebarModule({ title, children, action, borderRef }) {
   )
 }
 
-function EventsModule({ borderRef }) {
+function EventsModule({ events, borderRef }) {
   return (
-    <SidebarModule title="Upcoming Events" action="View all →" borderRef={borderRef}>
-      {EVENTS.map((e, i) => (
-        <div key={i} style={{ padding: '12px 0', borderBottom: '1px solid #EDE9E2', display: 'flex', gap: 14, alignItems: 'flex-start', cursor: 'pointer' }}
-          onMouseEnter={(ev) => (ev.currentTarget.style.opacity = 0.6)}
-          onMouseLeave={(ev) => (ev.currentTarget.style.opacity = 1)}>
-          <div style={{ flexShrink: 0, width: 36, textAlign: 'center' }}>
-            <div style={{ fontSize: 16, fontFamily: '"DM Serif Display", Georgia, serif', color: '#1A1815', lineHeight: 1 }}>{e.date.split(' ')[1]}</div>
-            <div style={{ fontSize: 10, letterSpacing: '0.06em', color: '#A8A49C', textTransform: 'uppercase', marginTop: 2 }}>{e.date.split(' ')[0]}</div>
-          </div>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 13, fontWeight: 500, color: '#1A1815' }}>{e.title}</div>
-            <div style={{ display: 'flex', gap: 8, marginTop: 3, alignItems: 'center' }}>
-              <span style={{ fontSize: 12, color: '#A8A49C' }}>{e.location}</span>
-              <span style={{ width: 3, height: 3, borderRadius: '50%', background: '#C0BCB4', flexShrink: 0 }} />
-              <span style={{ fontSize: 11, color: '#C0BCB4' }}>{e.spots}</span>
+    <SidebarModule title="Upcoming Events" action={<Link href="/events" style={{ fontSize: 11, color: '#A8A49C', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')} onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>View all →</Link>} borderRef={borderRef}>
+      {events.length === 0 ? (
+        <p style={{ fontSize: 13, color: '#C0BCB4', padding: '16px 0', margin: 0 }}>No upcoming events.</p>
+      ) : events.slice(0, 4).map((e) => {
+        const { month, day } = formatEventDate(e.event_date)
+        const href = e.link || '/events'
+        const isExternal = !!e.link
+        return (
+          <a
+            key={e.id}
+            href={href}
+            target={isExternal ? '_blank' : undefined}
+            rel={isExternal ? 'noopener noreferrer' : undefined}
+            style={{ padding: '12px 0', borderBottom: '1px solid #EDE9E2', display: 'flex', gap: 14, alignItems: 'flex-start', cursor: 'pointer', textDecoration: 'none' }}
+            onMouseEnter={(ev) => (ev.currentTarget.style.opacity = '0.6')}
+            onMouseLeave={(ev) => (ev.currentTarget.style.opacity = '1')}
+          >
+            <div style={{ flexShrink: 0, width: 36, textAlign: 'center' }}>
+              <div style={{ fontSize: 16, fontFamily: '"DM Serif Display", Georgia, serif', color: '#1A1815', lineHeight: 1 }}>{day}</div>
+              <div style={{ fontSize: 10, letterSpacing: '0.06em', color: '#A8A49C', textTransform: 'uppercase', marginTop: 2 }}>{month}</div>
             </div>
-          </div>
-        </div>
-      ))}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 500, color: '#1A1815' }}>{e.title}</div>
+              {e.spots && (
+                <div style={{ marginTop: 3 }}>
+                  <span style={{ fontSize: 11, color: '#C0BCB4' }}>{e.spots}</span>
+                </div>
+              )}
+            </div>
+          </a>
+        )
+      })}
     </SidebarModule>
   )
 }
 
-function AdvisorsModule() {
+function AdvisorsModule({ advisors }) {
   return (
-    <SidebarModule title="Open to Advising" action="View all →">
-      {ADVISORS.map((a, i) => (
-        <div key={i} style={{ padding: '12px 0', borderBottom: '1px solid #EDE9E2' }}>
+    <SidebarModule title="Open to Advising">
+      {advisors.length === 0 ? (
+        <p style={{ fontSize: 13, color: '#C0BCB4', padding: '16px 0', margin: 0 }}>None listed yet.</p>
+      ) : advisors.slice(0, 4).map((a) => (
+        <div key={a.id} style={{ padding: '12px 0', borderBottom: '1px solid #EDE9E2' }}>
           <div style={{ fontSize: 13, fontWeight: 500, color: '#1A1815' }}>{a.name}</div>
-          <div style={{ fontSize: 12, color: '#A8A49C', marginTop: 2 }}>{a.topic}</div>
+          <div style={{ fontSize: 12, color: '#A8A49C', marginTop: 2 }}>{a.topic}{a.company && ` · ${a.company}`}</div>
         </div>
       ))}
     </SidebarModule>
   )
 }
 
-function RaisingModule() {
+function JobsModule({ jobs }) {
   return (
-    <SidebarModule title="Looking to Raise" action="View all →">
-      {RAISING.map((r, i) => (
-        <div key={i} style={{ padding: '12px 0', borderBottom: '1px solid #EDE9E2', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <div>
-            <div style={{ fontSize: 13, fontWeight: 500, color: '#1A1815' }}>{r.name}</div>
-            <div style={{ fontSize: 12, color: '#A8A49C', marginTop: 2 }}>{r.company}</div>
-          </div>
-          <div style={{ textAlign: 'right', flexShrink: 0 }}>
-            <div style={{ fontSize: 12, color: '#6B6760' }}>{r.round}</div>
-            <div style={{ fontSize: 11, color: '#A8A49C', marginTop: 1 }}>{r.amount}</div>
-          </div>
-        </div>
-      ))}
-    </SidebarModule>
-  )
-}
-
-function JobsModule() {
-  return (
-    <SidebarModule title="Job Board" action="Post a role →">
-      {JOBS.map((j, i) => (
-        <div key={i} style={{ padding: '12px 0', borderBottom: '1px solid #EDE9E2', cursor: 'pointer' }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = 0.6)}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = 1)}>
-          <div style={{ fontSize: 13, fontWeight: 500, color: '#1A1815' }}>{j.title}</div>
-          <div style={{ display: 'flex', gap: 8, marginTop: 3, alignItems: 'center' }}>
-            <span style={{ fontSize: 12, color: '#6B6760' }}>{j.company}</span>
-            <span style={{ width: 3, height: 3, borderRadius: '50%', background: '#C0BCB4', flexShrink: 0 }} />
-            <span style={{ fontSize: 12, color: '#A8A49C' }}>{j.location}</span>
-          </div>
-        </div>
-      ))}
+    <SidebarModule title="Job Board">
+      {jobs.length === 0 ? (
+        <p style={{ fontSize: 13, color: '#C0BCB4', padding: '16px 0', margin: 0 }}>No open roles.</p>
+      ) : jobs.slice(0, 4).map((j) => {
+        const inner = (
+          <>
+            <div style={{ fontSize: 13, fontWeight: 500, color: '#1A1815' }}>{j.title}</div>
+            <div style={{ display: 'flex', gap: 8, marginTop: 3, alignItems: 'center' }}>
+              <span style={{ fontSize: 12, color: '#6B6760' }}>{j.company}</span>
+              <span style={{ width: 3, height: 3, borderRadius: '50%', background: '#C0BCB4', flexShrink: 0 }} />
+              <span style={{ fontSize: 12, color: '#A8A49C' }}>{j.location}</span>
+            </div>
+          </>
+        )
+        return j.link ? (
+          <a key={j.id} href={j.link} target="_blank" rel="noopener noreferrer" style={{ display: 'block', padding: '12px 0', borderBottom: '1px solid #EDE9E2', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.6')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
+            {inner}
+          </a>
+        ) : (
+          <div key={j.id} style={{ padding: '12px 0', borderBottom: '1px solid #EDE9E2' }}>{inner}</div>
+        )
+      })}
     </SidebarModule>
   )
 }
@@ -289,8 +286,20 @@ function JobsModule() {
 // ─── page ────────────────────────────────────────────────────────────────────
 
 export default function DirectoryPage() {
+  const router = useRouter()
   const [members, setMembers] = useState([])
   const [loading, setLoading] = useState(true)
+  const [events, setEvents] = useState([])
+  const [advisors, setAdvisors] = useState([])
+  const [jobs, setJobs] = useState([])
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  async function handleSignOut() {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/')
+    router.refresh()
+  }
   const [search, setSearch] = useState('')
   const [activeRoles, setActiveRoles] = useState(new Set())
   const [openId, setOpenId] = useState(null)
@@ -312,6 +321,19 @@ export default function DirectoryPage() {
     function onResize() { setSidebarPaddingTop(0) }
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  useEffect(() => {
+    fetch('/api/events').then((r) => r.json()).then((d) => { if (Array.isArray(d)) setEvents(d) }).catch(() => {})
+    fetch('/api/advisors').then((r) => r.json()).then((d) => { if (Array.isArray(d)) setAdvisors(d) }).catch(() => {})
+    fetch('/api/jobs').then((r) => r.json()).then((d) => { if (Array.isArray(d)) setJobs(d) }).catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    fetch('/api/admin/me')
+      .then((r) => r.json())
+      .then((data) => setIsAdmin(data.isAdmin))
+      .catch(() => {})
   }, [])
 
   useEffect(() => {
@@ -350,9 +372,18 @@ export default function DirectoryPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#F4F1EB' }}>
-      <Link href="/" style={{ position: 'fixed', top: 32, right: 'max(48px, calc((100vw - 1160px) / 2 + 48px))', fontSize: 13, color: '#6B6760', textDecoration: 'none', letterSpacing: '0.01em', zIndex: 50 }}>
-        Sign out →
-      </Link>
+      <div style={{ position: 'fixed', top: 32, right: 'max(48px, calc((100vw - 1160px) / 2 + 48px))', display: 'flex', alignItems: 'center', gap: 24, zIndex: 50 }}>
+        {isAdmin && (
+          <Link href="/admin" style={{ fontSize: 13, color: '#A8A49C', textDecoration: 'none', letterSpacing: '0.01em' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>
+            Admin
+          </Link>
+        )}
+        <button onClick={handleSignOut} style={{ fontSize: 13, color: '#6B6760', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.01em' }}>
+          Sign out →
+        </button>
+      </div>
       <div style={{ maxWidth: 1160, margin: '0 auto', padding: '80px 48px 120px', display: 'flex', gap: 120, alignItems: 'flex-start' }}>
 
         {/* ── Left: directory ── */}
@@ -406,9 +437,9 @@ export default function DirectoryPage() {
 
         {/* ── Right: sidebar ── */}
         <div style={{ width: 256, flexShrink: 0, paddingTop: sidebarPaddingTop }}>
-          <EventsModule borderRef={sidebarBorderRef} />
-          <AdvisorsModule />
-          <JobsModule />
+          <EventsModule events={events} borderRef={sidebarBorderRef} />
+          <AdvisorsModule advisors={advisors} />
+          <JobsModule jobs={jobs} />
         </div>
 
       </div>

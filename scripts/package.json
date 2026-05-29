@@ -1,0 +1,15 @@
+{
+  "name": "o1-collective-scripts",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test-apify": "node test-apify.js",
+    "crawl-portfolios": "node crawl-portfolios.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "dotenv": "^16.4.5",
+    "exa-js": "^2.12.1",
+    "playwright": "^1.52.0"
+  }
+}

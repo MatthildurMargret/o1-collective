@@ -12,8 +12,7 @@ function Nav() {
       <span style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 18, color: '#1A1815', letterSpacing: '-0.01em' }}>
         O1 Collective
       </span>
-      <Link href="/directory" style={{ fontSize: 13, color: '#6B6760', textDecoration: 'none', letterSpacing: '0.01em' }}
-        onMouseEnter={undefined}>
+      <Link href="/directory" style={{ fontSize: 13, color: '#6B6760', textDecoration: 'none', letterSpacing: '0.01em' }}>
         Member login →
       </Link>
     </nav>
@@ -29,9 +28,6 @@ function Hero() {
       padding: '48px 56px 80px',
     }}>
       <div style={{ maxWidth: 800 }}>
-        <p style={{ fontSize: 12, letterSpacing: '0.12em', color: '#A8A49C', textTransform: 'uppercase', marginBottom: 36 }}>
-          San Francisco &nbsp;·&nbsp; New York
-        </p>
         <h1 style={{
           fontFamily: '"DM Serif Display", Georgia, serif',
           fontSize: 'clamp(52px, 7vw, 88px)',
@@ -45,18 +41,6 @@ function Hero() {
           Europeans building<br />
           the next chapter of tech.
         </h1>
-        <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-          <Link href="/apply" style={{
-            display: 'inline-block', padding: '13px 28px',
-            background: '#1A1815', color: '#F4F1EB',
-            fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
-          }}>
-            Apply for membership
-          </Link>
-          <Link href="/directory" style={{ fontSize: 13, color: '#A8A49C', textDecoration: 'none' }}>
-            Member login →
-          </Link>
-        </div>
       </div>
     </section>
   )
@@ -81,52 +65,102 @@ function Manifesto() {
           We provide the network and infrastructure for Europe's most ambitious founders to scale faster, surrounded by those who have already navigated the path.
         </p>
         <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.7, margin: 0, maxWidth: 480 }}>
-        O1 Collective is a private network for European founders, investors, and operators building the future from Silicon Valley. A community designed for those who value signal over noise, providing a vetted environment for the valley's most impactful European voices.
+          O1 Collective is a private network for European founders, investors, and operators building the future from Silicon Valley. A community designed for those who value signal over noise, providing a vetted environment for the valley's most impactful European voices.
         </p>
       </div>
     </section>
   )
 }
 
-function Pillars() {
-  const items = [
-    {
-      number: '01',
-      title: 'Network',
-      body: 'A vetted directory of the European ecosystem in the Valley. A high-trust circle of peers committed to opening doors.',
-    },
-    {
-      number: '02',
-      title: 'Unfair advantage',
-      body: 'Deal flow, intros, opportunities, hires, and support from founders, investors, and operators at the top of their fields.',
-    },
-    {
-      number: '03',
-      title: 'Priority access',
-      body: 'Exclusive partner credits, GTM playbooks, legal resources, and the institutional knowledge that only exists inside the room.',
-    },
-  ]
-
+function MembershipTiers() {
   return (
     <section style={{ background: '#F4F1EB', padding: '120px 56px' }}>
-      <div style={{ maxWidth: 1040, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 64 }}>
-        {items.map((item) => (
-          <div key={item.number}>
-            <span style={{ fontSize: 11, letterSpacing: '0.1em', color: '#C0BCB4', display: 'block', marginBottom: 24 }}>
-              {item.number}
-            </span>
-            <h3 style={{
-              fontFamily: '"DM Serif Display", Georgia, serif',
-              fontSize: 26, fontWeight: 400, color: '#1A1815',
-              margin: '0 0 16px', lineHeight: 1.2,
-            }}>
-              {item.title}
-            </h3>
-            <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.75, margin: 0 }}>
-              {item.body}
-            </p>
+      <div style={{ maxWidth: 1040, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
+
+        {/* Founder Circle */}
+        <div style={{
+          background: '#1A1815',
+          padding: '56px 48px',
+          display: 'flex', flexDirection: 'column',
+        }}>
+          <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#6B6760', textTransform: 'uppercase', display: 'block', marginBottom: 32 }}>
+            Founder Circle
+          </span>
+          <h3 style={{
+            fontFamily: '"DM Serif Display", Georgia, serif',
+            fontSize: 32, fontWeight: 400, color: '#F4F1EB',
+            margin: '0 0 20px', lineHeight: 1.15,
+          }}>
+            A curated cohort for<br />ambitious founders.
+          </h3>
+          <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.75, margin: '0 0 40px' }}>
+            A high-conviction, invitation-reviewed circle. Small by design. High-trust by default.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 48 }}>
+            {[
+              { label: 'Service provider discounts', detail: 'Pebble, Deel, OpenAI credits, immigration lawyers' },
+              { label: 'First priority access', detail: 'All events, dinners, and curated programming' },
+              { label: 'Advisor & mentor network', detail: 'Exclusive introductions to seasoned operators and investors' },
+            ].map((b) => (
+              <div key={b.label} style={{ borderTop: '1px solid #2C2A27', paddingTop: 20 }}>
+                <p style={{ fontSize: 13, color: '#F4F1EB', margin: '0 0 4px', letterSpacing: '0.01em' }}>{b.label}</p>
+                <p style={{ fontSize: 12, color: '#6B6760', margin: 0, lineHeight: 1.6 }}>{b.detail}</p>
+              </div>
+            ))}
           </div>
-        ))}
+          <div style={{ marginTop: 'auto' }}>
+            <Link href="/apply/founder" style={{
+              display: 'inline-block', padding: '12px 24px',
+              border: '1px solid #3D3A34', color: '#F4F1EB',
+              fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
+            }}>
+              Apply for Founder Circle →
+            </Link>
+          </div>
+        </div>
+
+        {/* General Membership */}
+        <div style={{
+          background: '#EDEAE3',
+          padding: '56px 48px',
+          display: 'flex', flexDirection: 'column',
+        }}>
+          <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#A8A49C', textTransform: 'uppercase', display: 'block', marginBottom: 32 }}>
+            General Membership
+          </span>
+          <h3 style={{
+            fontFamily: '"DM Serif Display", Georgia, serif',
+            fontSize: 32, fontWeight: 400, color: '#1A1815',
+            margin: '0 0 20px', lineHeight: 1.15,
+          }}>
+            The broader European<br />ecosystem in the Valley.
+          </h3>
+          <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.75, margin: '0 0 40px' }}>
+            For operators, investors, and others who are part of the European tech community across the US.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 48 }}>
+            {[
+              { label: 'Community access', detail: 'Curated communications and member directory' },
+              { label: 'Events & programming', detail: 'Dinners, meetups, and talks across SF and New York' },
+              { label: 'Network of peers', detail: 'European founders, investors, and operators in the US' },
+            ].map((b) => (
+              <div key={b.label} style={{ borderTop: '1px solid #DDD9CF', paddingTop: 20 }}>
+                <p style={{ fontSize: 13, color: '#1A1815', margin: '0 0 4px', letterSpacing: '0.01em' }}>{b.label}</p>
+                <p style={{ fontSize: 12, color: '#A8A49C', margin: 0, lineHeight: 1.6 }}>{b.detail}</p>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 'auto' }}>
+            <Link href="/apply/general" style={{
+              display: 'inline-block', padding: '12px 24px',
+              background: '#1A1815', color: '#F4F1EB',
+              fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
+            }}>
+              Join as a Member →
+            </Link>
+          </div>
+        </div>
+
       </div>
     </section>
   )
@@ -189,7 +223,7 @@ function Founders() {
 function Apply() {
   return (
     <section style={{ background: '#1A1815', padding: '140px 56px' }}>
-      <div style={{ maxWidth: 560 }}>
+      <div style={{ maxWidth: 800 }}>
         <h2 style={{
           fontFamily: '"DM Serif Display", Georgia, serif',
           fontSize: 'clamp(36px, 5vw, 56px)',
@@ -199,16 +233,35 @@ function Apply() {
         }}>
           Applications are open.
         </h2>
-        <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.7, margin: '0 0 48px', maxWidth: 400 }}>
-          Membership is by application. We review each one personally and respond within two weeks.
+        <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.7, margin: '0 0 56px', maxWidth: 400 }}>
+          We review each application personally and respond within two weeks.
         </p>
-        <Link href="/apply" style={{
-          display: 'inline-block', padding: '13px 28px',
-          border: '1px solid #3D3A34', color: '#F4F1EB',
-          fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
-        }}>
-          Apply →
-        </Link>
+        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+          <div>
+            <Link href="/apply/founder" style={{
+              display: 'inline-block', padding: '13px 28px',
+              border: '1px solid #3D3A34', color: '#F4F1EB',
+              fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
+            }}>
+              Apply for Founder Circle →
+            </Link>
+            <p style={{ fontSize: 11, color: '#3D3A34', margin: '10px 0 0', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              Curated cohort
+            </p>
+          </div>
+          <div>
+            <Link href="/apply/general" style={{
+              display: 'inline-block', padding: '13px 28px',
+              background: '#2C2A27', color: '#A8A49C',
+              fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
+            }}>
+              Join as a Member →
+            </Link>
+            <p style={{ fontSize: 11, color: '#3D3A34', margin: '10px 0 0', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              General membership
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   )
@@ -245,7 +298,7 @@ export default function LandingPage() {
       <main>
         <Hero />
         <Manifesto />
-        <Pillars />
+        <MembershipTiers />
         <WhoIsIt />
         <LogoStrip />
         <Founders />

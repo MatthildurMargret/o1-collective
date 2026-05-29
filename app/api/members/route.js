@@ -32,6 +32,7 @@ export async function GET() {
         company: cleanCompany(v.company_7[0]?.value),
         location: v.primary_location[0]?.locality ?? '',
         linkedin: v.linkedin[0]?.value ?? '',
+        email: v.email_addresses?.[0]?.email_address ?? '',
         description: v.description[0]?.value ?? '',
         avatar: v.avatar_url[0]?.value ?? '',
         roles: (v.role_5 ?? []).map((x) => x.option.title),
