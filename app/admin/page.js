@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 // ─── shared styles ────────────────────────────────────────────────────────────
@@ -571,8 +572,8 @@ export default function AdminPage() {
   return (
     <div style={{ minHeight: '100vh', background: '#F4F1EB' }}>
       <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '32px 56px' }}>
-        <Link href="/directory" style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 18, color: '#1A1815', letterSpacing: '-0.01em', textDecoration: 'none' }}>
-          O1 Collective
+        <Link href="/directory" style={{ display: 'block', lineHeight: 0 }}>
+          <Image src="/logo_black.png" alt="O1 Collective" width={120} height={27} priority unoptimized />
         </Link>
         <Link href="/directory" style={{ fontSize: 13, color: '#A8A49C', textDecoration: 'none' }}>← Directory</Link>
       </nav>

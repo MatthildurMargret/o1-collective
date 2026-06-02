@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import LogoStrip from './LogoStrip'
 
@@ -9,9 +10,7 @@ function Nav() {
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       padding: '32px 56px',
     }}>
-      <span style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 18, color: '#1A1815', letterSpacing: '-0.01em' }}>
-        O1 Collective
-      </span>
+      <Image src="/logo_black.png" alt="O1 Collective" width={180} height={40} style={{ display: 'block' }} priority unoptimized />
       <Link href="/directory" style={{ fontSize: 13, color: '#6B6760', textDecoration: 'none', letterSpacing: '0.01em' }}>
         Member login →
       </Link>
@@ -203,15 +202,14 @@ function Founders() {
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, maxWidth: 720 }}>
           {[
-            { name: 'Valerie Osband Mahoney', role: 'Partner, NFX', origin: 'United Kingdom' },
-            { name: 'Tobias Nilsson-Roos', role: 'Partner, Crosslink Capital', origin: 'Sweden' },
+            { name: 'Valerie Osband Mahoney', role: 'Partner, NFX' },
+            { name: 'Tobias Nilsson-Roos', role: 'Partner, Crosslink Capital' },
           ].map((f) => (
             <div key={f.name}>
               <p style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 22, color: '#1A1815', margin: '0 0 6px', lineHeight: 1.2 }}>
                 {f.name}
               </p>
-              <p style={{ fontSize: 13, color: '#6B6760', margin: '0 0 4px' }}>{f.role}</p>
-              <p style={{ fontSize: 12, color: '#A8A49C', margin: 0 }}>{f.origin}</p>
+              <p style={{ fontSize: 13, color: '#6B6760', margin: 0 }}>{f.role}</p>
             </div>
           ))}
         </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useState, useMemo, useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import Link from 'next/link'
 import { createClient } from '../../lib/supabase'
 
@@ -389,9 +390,7 @@ export default function DirectoryPage() {
         {/* ── Left: directory ── */}
         <div style={{ flex: '1 1 0', minWidth: 0 }}>
           <div style={{ marginBottom: 52 }}>
-            <h1 style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 48, fontWeight: 400, color: '#1A1815', margin: 0, lineHeight: 1.1 }}>
-              O1 Collective
-            </h1>
+            <Image src="/logo_black.png" alt="O1 Collective" width={200} height={44} style={{ display: 'block' }} priority unoptimized />
             <p style={{ marginTop: 10, fontSize: 14, color: '#A8A49C', letterSpacing: '0.01em' }}>
               A private community of founders, investors &amp; operators
             </p>
