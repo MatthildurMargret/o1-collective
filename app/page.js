@@ -1,22 +1,6 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import LogoStrip from './LogoStrip'
-
-// ─── nav ─────────────────────────────────────────────────────────────────────
-
-function Nav() {
-  return (
-    <nav style={{
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      padding: '32px 56px',
-    }}>
-      <Image src="/logo_black.png" alt="O1 Collective" width={180} height={40} style={{ display: 'block' }} priority unoptimized />
-      <Link href="/directory" style={{ fontSize: 13, color: '#6B6760', textDecoration: 'none', letterSpacing: '0.01em' }}>
-        Member login →
-      </Link>
-    </nav>
-  )
-}
+import SiteNav from './SiteNav'
 
 // ─── sections ────────────────────────────────────────────────────────────────
 
@@ -193,72 +177,62 @@ function WhoIsIt() {
   )
 }
 
-function Founders() {
-  return (
-    <section style={{ background: '#F4F1EB', padding: '120px 56px', borderTop: '1px solid #DDD9CF' }}>
-      <div style={{ maxWidth: 1040 }}>
-        <p style={{ fontSize: 11, letterSpacing: '0.1em', color: '#A8A49C', textTransform: 'uppercase', margin: '0 0 48px' }}>
-          Founded by
-        </p>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, maxWidth: 720 }}>
-          {[
-            { name: 'Valerie Osband Mahoney', role: 'Partner, NFX' },
-            { name: 'Tobias Nilsson-Roos', role: 'Partner, Crosslink Capital' },
-          ].map((f) => (
-            <div key={f.name}>
-              <p style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 22, color: '#1A1815', margin: '0 0 6px', lineHeight: 1.2 }}>
-                {f.name}
-              </p>
-              <p style={{ fontSize: 13, color: '#6B6760', margin: 0 }}>{f.role}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function Apply() {
   return (
     <section style={{ background: '#1A1815', padding: '140px 56px' }}>
-      <div style={{ maxWidth: 800 }}>
-        <h2 style={{
-          fontFamily: '"DM Serif Display", Georgia, serif',
-          fontSize: 'clamp(36px, 5vw, 56px)',
-          fontWeight: 400, color: '#F4F1EB',
-          lineHeight: 1.1, margin: '0 0 24px',
-          letterSpacing: '-0.02em',
-        }}>
-          Applications are open.
-        </h2>
-        <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.7, margin: '0 0 56px', maxWidth: 400 }}>
-          We review each application personally and respond within two weeks.
-        </p>
-        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-          <div>
-            <Link href="/apply/founder" style={{
-              display: 'inline-block', padding: '13px 28px',
-              border: '1px solid #3D3A34', color: '#F4F1EB',
-              fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
-            }}>
-              Apply for Founder Circle →
-            </Link>
-            <p style={{ fontSize: 11, color: '#3D3A34', margin: '10px 0 0', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-              Curated cohort
-            </p>
+      <div style={{ maxWidth: 1040, display: 'flex', gap: 100, alignItems: 'center', flexWrap: 'wrap' }}>
+        <div style={{ flex: '1 1 400px', maxWidth: 560 }}>
+          <h2 style={{
+            fontFamily: '"DM Serif Display", Georgia, serif',
+            fontSize: 'clamp(36px, 5vw, 56px)',
+            fontWeight: 400, color: '#F4F1EB',
+            lineHeight: 1.1, margin: '0 0 24px',
+            letterSpacing: '-0.02em',
+          }}>
+            Applications are open.
+          </h2>
+          <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.7, margin: '0 0 56px', maxWidth: 400 }}>
+            We review each application personally and respond within two weeks.
+          </p>
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+            <div>
+              <Link href="/apply/founder" style={{
+                display: 'inline-block', padding: '13px 28px',
+                border: '1px solid #3D3A34', color: '#F4F1EB',
+                fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
+              }}>
+                Apply for Founder Circle →
+              </Link>
+              <p style={{ fontSize: 11, color: '#3D3A34', margin: '10px 0 0', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                Curated cohort
+              </p>
+            </div>
+            <div>
+              <Link href="/apply/general" style={{
+                display: 'inline-block', padding: '13px 28px',
+                background: '#2C2A27', color: '#A8A49C',
+                fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
+              }}>
+                Join as a Member →
+              </Link>
+              <p style={{ fontSize: 11, color: '#3D3A34', margin: '10px 0 0', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                General membership
+              </p>
+            </div>
           </div>
-          <div>
-            <Link href="/apply/general" style={{
-              display: 'inline-block', padding: '13px 28px',
-              background: '#2C2A27', color: '#A8A49C',
-              fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
-            }}>
-              Join as a Member →
-            </Link>
-            <p style={{ fontSize: 11, color: '#3D3A34', margin: '10px 0 0', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-              General membership
-            </p>
-          </div>
+        </div>
+
+        <div style={{ flex: '1 1 320px', maxWidth: 380 }}>
+          <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.8, margin: '0 0 16px' }}>
+            As we continue to grow, we're always on the lookout for folks who are deeply passionate about establishing the premier community for the next-generation of European leaders in the US.
+          </p>
+          <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.8, margin: 0 }}>
+            You can reach us at{' '}
+            <a href="mailto:community@o1-collective.com" style={{ color: '#F4F1EB', textDecoration: 'underline' }}>
+              community@o1-collective.com
+            </a>{' '}
+            or directly on our LinkedIns if you're interested in becoming more actively involved!
+          </p>
         </div>
       </div>
     </section>
@@ -279,6 +253,12 @@ function Footer() {
         <a href="mailto:community@o1-collective.com" style={{ fontSize: 12, color: '#6B6760', textDecoration: 'none' }}>
           community@o1-collective.com
         </a>
+        <Link href="/about" style={{ fontSize: 12, color: '#6B6760', textDecoration: 'none' }}>
+          About
+        </Link>
+        <Link href="/past-events" style={{ fontSize: 12, color: '#6B6760', textDecoration: 'none' }}>
+          Events
+        </Link>
         <Link href="/directory" style={{ fontSize: 12, color: '#6B6760', textDecoration: 'none' }}>
           Member login
         </Link>
@@ -292,14 +272,13 @@ function Footer() {
 export default function LandingPage() {
   return (
     <>
-      <Nav />
+      <SiteNav priority />
       <main>
         <Hero />
         <Manifesto />
         <MembershipTiers />
         <WhoIsIt />
         <LogoStrip />
-        <Founders />
         <Apply />
       </main>
       <Footer />

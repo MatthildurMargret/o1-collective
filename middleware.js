@@ -37,6 +37,23 @@ export async function middleware(request) {
     return NextResponse.redirect(url)
   }
 
+  // Being authenticated isn't the same as being an approved member — anyone can create a
+  // Supabase auth account. Only members who completed /welcome (which itself re-verifies
+  // approval server-side) get a profiles row with onboarding_complete set.
+  if (user && (pathname.startsWith('/directory') || pathname.startsWith('/events'))) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('onboarding_complete')
+      .eq('id', user.id)
+      .maybeSingle()
+
+    if (!profile?.onboarding_complete) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/welcome'
+      return NextResponse.redirect(url)
+    }
+  }
+
   return supabaseResponse
 }
 

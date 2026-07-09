@@ -241,49 +241,6 @@ function EventsModule({ events, borderRef }) {
   )
 }
 
-function AdvisorsModule({ advisors }) {
-  return (
-    <SidebarModule title="Open to Advising">
-      {advisors.length === 0 ? (
-        <p style={{ fontSize: 13, color: '#C0BCB4', padding: '16px 0', margin: 0 }}>None listed yet.</p>
-      ) : advisors.slice(0, 4).map((a) => (
-        <div key={a.id} style={{ padding: '12px 0', borderBottom: '1px solid #EDE9E2' }}>
-          <div style={{ fontSize: 13, fontWeight: 500, color: '#1A1815' }}>{a.name}</div>
-          <div style={{ fontSize: 12, color: '#A8A49C', marginTop: 2 }}>{a.topic}{a.company && ` · ${a.company}`}</div>
-        </div>
-      ))}
-    </SidebarModule>
-  )
-}
-
-function JobsModule({ jobs }) {
-  return (
-    <SidebarModule title="Job Board">
-      {jobs.length === 0 ? (
-        <p style={{ fontSize: 13, color: '#C0BCB4', padding: '16px 0', margin: 0 }}>No open roles.</p>
-      ) : jobs.slice(0, 4).map((j) => {
-        const inner = (
-          <>
-            <div style={{ fontSize: 13, fontWeight: 500, color: '#1A1815' }}>{j.title}</div>
-            <div style={{ display: 'flex', gap: 8, marginTop: 3, alignItems: 'center' }}>
-              <span style={{ fontSize: 12, color: '#6B6760' }}>{j.company}</span>
-              <span style={{ width: 3, height: 3, borderRadius: '50%', background: '#C0BCB4', flexShrink: 0 }} />
-              <span style={{ fontSize: 12, color: '#A8A49C' }}>{j.location}</span>
-            </div>
-          </>
-        )
-        return j.link ? (
-          <a key={j.id} href={j.link} target="_blank" rel="noopener noreferrer" style={{ display: 'block', padding: '12px 0', borderBottom: '1px solid #EDE9E2', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.6')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
-            {inner}
-          </a>
-        ) : (
-          <div key={j.id} style={{ padding: '12px 0', borderBottom: '1px solid #EDE9E2' }}>{inner}</div>
-        )
-      })}
-    </SidebarModule>
-  )
-}
-
 // ─── page ────────────────────────────────────────────────────────────────────
 
 export default function DirectoryPage() {
@@ -291,8 +248,6 @@ export default function DirectoryPage() {
   const [members, setMembers] = useState([])
   const [loading, setLoading] = useState(true)
   const [events, setEvents] = useState([])
-  const [advisors, setAdvisors] = useState([])
-  const [jobs, setJobs] = useState([])
   const [isAdmin, setIsAdmin] = useState(false)
 
   async function handleSignOut() {
@@ -326,8 +281,6 @@ export default function DirectoryPage() {
 
   useEffect(() => {
     fetch('/api/events').then((r) => r.json()).then((d) => { if (Array.isArray(d)) setEvents(d) }).catch(() => {})
-    fetch('/api/advisors').then((r) => r.json()).then((d) => { if (Array.isArray(d)) setAdvisors(d) }).catch(() => {})
-    fetch('/api/jobs').then((r) => r.json()).then((d) => { if (Array.isArray(d)) setJobs(d) }).catch(() => {})
   }, [])
 
   useEffect(() => {
@@ -340,7 +293,7 @@ export default function DirectoryPage() {
   useEffect(() => {
     fetch('/api/members')
       .then((r) => r.json())
-      .then((data) => { setMembers(data); setLoading(false) })
+      .then((data) => { if (Array.isArray(data)) setMembers(data); setLoading(false) })
       .catch(() => setLoading(false))
   }, [])
 
@@ -437,8 +390,6 @@ export default function DirectoryPage() {
         {/* ── Right: sidebar ── */}
         <div style={{ width: 256, flexShrink: 0, paddingTop: sidebarPaddingTop }}>
           <EventsModule events={events} borderRef={sidebarBorderRef} />
-          <AdvisorsModule advisors={advisors} />
-          <JobsModule jobs={jobs} />
         </div>
 
       </div>

@@ -79,23 +79,15 @@ export default function WelcomePage() {
     setSaving(true)
     setError('')
 
-    const supabase = createClient()
-
-    const { error: upsertError } = await supabase.from('profiles').upsert({
-      id: user.id,
-      email: user.email,
-      name: form.name,
-      job_title: form.jobTitle,
-      company: form.company,
-      location: form.location,
-      bio: form.bio,
-      attio_id: attioData?.attioId ?? null,
-      linkedin: form.linkedin || null,
-      onboarding_complete: true,
+    const res = await fetch('/api/profile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
     })
+    const data = await res.json()
 
-    if (upsertError) {
-      setError(upsertError.message)
+    if (!res.ok) {
+      setError(data.error || 'Something went wrong.')
       setSaving(false)
       return
     }
