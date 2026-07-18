@@ -575,7 +575,7 @@ export default function AdminPage() {
         <Link href="/directory" style={{ display: 'block', lineHeight: 0 }}>
           <Image src="/logo_black.png" alt="O1 Collective" width={120} height={27} priority unoptimized />
         </Link>
-        <Link href="/directory" style={{ fontSize: 13, color: '#A8A49C', textDecoration: 'none' }}>← Directory</Link>
+        <Link href="/directory" style={{ fontSize: 14, color: '#A8A49C', textDecoration: 'none' }}>← Directory</Link>
       </nav>
 
       <main style={{ maxWidth: 680, margin: '0 auto', padding: '48px 48px 120px' }}>

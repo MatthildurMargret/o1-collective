@@ -190,7 +190,7 @@ export default function LoginPage() {
                 {error && (
                   <div>
                     <p style={{ fontSize: 13, color: '#B85C5C', margin: 0, lineHeight: 1.6 }}>{error}</p>
-                    <Link href="/apply/general" style={{ fontSize: 12, color: '#A8A49C', textDecoration: 'underline', marginTop: 6, display: 'inline-block' }}>
+                    <Link href="/apply/general" style={{ fontSize: 13, color: '#A8A49C', textDecoration: 'underline', marginTop: 6, display: 'inline-block' }}>
                       Apply for membership →
                     </Link>
                   </div>

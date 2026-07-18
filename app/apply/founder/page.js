@@ -66,7 +66,7 @@ export default function FounderApplyPage() {
         <Link href="/" style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 18, color: '#1A1815', letterSpacing: '-0.01em', textDecoration: 'none' }}>
           O1 Collective
         </Link>
-        <Link href="/login" style={{ fontSize: 13, color: '#A8A49C', textDecoration: 'none' }}>
+        <Link href="/login" style={{ fontSize: 14, color: '#A8A49C', textDecoration: 'none' }}>
           Member login →
         </Link>
       </nav>
@@ -81,7 +81,7 @@ export default function FounderApplyPage() {
             <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.8, margin: '0 0 40px', maxWidth: 400 }}>
               We review each application personally and will be in touch within two weeks.
             </p>
-            <Link href="/" style={{ fontSize: 13, color: '#A8A49C', textDecoration: 'none' }}>← Back to home</Link>
+            <Link href="/" style={{ fontSize: 14, color: '#A8A49C', textDecoration: 'none' }}>← Back to home</Link>
           </div>
         ) : (
           <>

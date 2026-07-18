@@ -1,28 +1,7 @@
 import Link from 'next/link'
 import { getUpcomingEvents } from '../../lib/events'
 import SiteNav from '../SiteNav'
-
-function Footer() {
-  return (
-    <footer style={{
-      background: '#1A1815', borderTop: '1px solid #2C2A27',
-      padding: '40px 56px',
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16,
-    }}>
-      <span style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 16, color: '#3D3A34' }}>
-        O1 Collective
-      </span>
-      <div style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
-        <a href="mailto:community@o1-collective.com" style={{ fontSize: 12, color: '#6B6760', textDecoration: 'none' }}>
-          community@o1-collective.com
-        </a>
-        <Link href="/" style={{ fontSize: 12, color: '#6B6760', textDecoration: 'none' }}>
-          Home
-        </Link>
-      </div>
-    </footer>
-  )
-}
+import SiteFooter from '../SiteFooter'
 
 const pastEvents = [
   {
@@ -210,7 +189,7 @@ export default async function PastEventsPage() {
         </div>
       </main>
 
-      <Footer />
+      <SiteFooter />
     </div>
   )
 }

@@ -22,12 +22,12 @@ export default function SiteNav({ priority = false }) {
           <Link
             key={link.href}
             href={link.href}
-            style={{ fontSize: 13, color: pathname === link.href ? '#A8A49C' : '#6B6760', textDecoration: 'none', letterSpacing: '0.01em' }}
+            style={{ fontSize: 14, color: pathname === link.href ? '#A8A49C' : '#6B6760', textDecoration: 'none', letterSpacing: '0.01em' }}
           >
             {link.label}
           </Link>
         ))}
-        <Link href="/directory" style={{ fontSize: 13, color: '#6B6760', textDecoration: 'none', letterSpacing: '0.01em' }}>
+        <Link href="/directory" style={{ fontSize: 14, color: '#6B6760', textDecoration: 'none', letterSpacing: '0.01em' }}>
           Member login →
         </Link>
       </div>

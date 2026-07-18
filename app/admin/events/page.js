@@ -164,8 +164,8 @@ export default function AdminEventsPage() {
           O1 Collective
         </Link>
         <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
-          <Link href="/directory" style={{ fontSize: 13, color: '#A8A49C', textDecoration: 'none' }}>← Directory</Link>
-          <Link href="/events" style={{ fontSize: 13, color: '#A8A49C', textDecoration: 'none' }}>View events page →</Link>
+          <Link href="/directory" style={{ fontSize: 14, color: '#A8A49C', textDecoration: 'none' }}>← Directory</Link>
+          <Link href="/events" style={{ fontSize: 14, color: '#A8A49C', textDecoration: 'none' }}>View events page →</Link>
         </div>
       </nav>
 

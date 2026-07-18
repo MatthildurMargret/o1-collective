@@ -88,14 +88,6 @@ function MemberRow({ member, isOpen, onToggle }) {
                 : <p style={{ fontSize: 13, fontStyle: 'italic', color: '#C0BCB4', margin: 0 }}>Bio coming soon.</p>}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0, alignItems: 'flex-end' }}>
-              {member.email && (
-                <a href={`mailto:${member.email}`} onClick={(e) => e.stopPropagation()}
-                  style={{ fontSize: 12, color: '#A8A49C', textDecoration: 'none' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>
-                  {member.email}
-                </a>
-              )}
               {member.linkedin && (
                 <a href={member.linkedin} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}
                   style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#A8A49C', textDecoration: 'none' }}
@@ -205,7 +197,7 @@ function SidebarModule({ title, children, action, borderRef }) {
 
 function EventsModule({ events, borderRef }) {
   return (
-    <SidebarModule title="Upcoming Events" action={<Link href="/events" style={{ fontSize: 11, color: '#A8A49C', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')} onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>View all →</Link>} borderRef={borderRef}>
+    <SidebarModule title="Upcoming Events" action={<Link href="/events" style={{ fontSize: 12, color: '#A8A49C', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')} onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>View all →</Link>} borderRef={borderRef}>
       {events.length === 0 ? (
         <p style={{ fontSize: 13, color: '#C0BCB4', padding: '16px 0', margin: 0 }}>No upcoming events.</p>
       ) : events.slice(0, 4).map((e) => {
@@ -328,7 +320,7 @@ export default function DirectoryPage() {
     <div style={{ minHeight: '100vh', background: '#F4F1EB' }}>
       <div style={{ position: 'fixed', top: 32, right: 'max(48px, calc((100vw - 1160px) / 2 + 48px))', display: 'flex', alignItems: 'center', gap: 24, zIndex: 50 }}>
         {isAdmin && (
-          <Link href="/admin" style={{ fontSize: 13, color: '#A8A49C', textDecoration: 'none', letterSpacing: '0.01em' }}
+          <Link href="/admin" style={{ fontSize: 14, color: '#A8A49C', textDecoration: 'none', letterSpacing: '0.01em' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')}
             onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>
             Admin

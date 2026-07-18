@@ -30,7 +30,7 @@ export default function EventsPage() {
         <Link href="/directory" style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 18, color: '#1A1815', letterSpacing: '-0.01em', textDecoration: 'none' }}>
           O1 Collective
         </Link>
-        <Link href="/directory" style={{ fontSize: 13, color: '#A8A49C', textDecoration: 'none' }}>
+        <Link href="/directory" style={{ fontSize: 14, color: '#A8A49C', textDecoration: 'none' }}>
           ← Directory
         </Link>
       </nav>

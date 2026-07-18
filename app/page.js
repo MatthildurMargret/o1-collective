@@ -1,29 +1,69 @@
 import Link from 'next/link'
 import LogoStrip from './LogoStrip'
 import SiteNav from './SiteNav'
+import SiteFooter from './SiteFooter'
+import ApplySection from './ApplySection'
 
 // ─── sections ────────────────────────────────────────────────────────────────
 
 function Hero() {
+  const stats = [
+    { value: '100+', label: 'Members' },
+    { value: '25+', label: 'Countries' },
+    { value: '$1B+', label: 'Raised' },
+  ]
+
   return (
     <section style={{
       background: '#F4F1EB',
       padding: '48px 56px 80px',
     }}>
-      <div style={{ maxWidth: 800 }}>
+      <div style={{ maxWidth: 760 }}>
         <h1 style={{
           fontFamily: '"DM Serif Display", Georgia, serif',
-          fontSize: 'clamp(52px, 7vw, 88px)',
+          fontSize: 'clamp(52px, 7vw, 80px)',
           fontWeight: 400,
           color: '#1A1815',
-          lineHeight: 1.05,
+          lineHeight: 1.08,
           letterSpacing: '-0.02em',
-          margin: '0 0 40px',
+          margin: '0 0 28px',
         }}>
-          A private circle for<br />
-          Europeans building<br />
-          the next chapter of tech.
+          European Builders.<br />
+          One Trusted Network.
         </h1>
+        <p style={{
+          fontSize: 17,
+          color: '#6B6760',
+          lineHeight: 1.65,
+          maxWidth: 520,
+          margin: '0 0 48px',
+        }}>
+          Building the institution that connects Europe's most ambitious founders, operators, and investors across the United States.
+        </p>
+
+        <div style={{ display: 'flex', gap: 48, flexWrap: 'wrap', marginBottom: 48 }}>
+          {stats.map((s) => (
+            <div key={s.label}>
+              <p style={{
+                fontFamily: '"DM Serif Display", Georgia, serif',
+                fontSize: 30, fontWeight: 400, color: '#1A1815', margin: '0 0 4px',
+              }}>
+                {s.value}
+              </p>
+              <p style={{ fontSize: 12, color: '#A8A49C', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>
+                {s.label}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <Link href="#membership" style={{
+          display: 'inline-block', padding: '13px 28px',
+          background: '#1A1815', color: '#F4F1EB',
+          fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
+        }}>
+          Apply for Membership →
+        </Link>
       </div>
     </section>
   )
@@ -41,15 +81,59 @@ function Manifesto() {
           fontSize: 'clamp(24px, 3vw, 36px)',
           fontWeight: 400,
           color: '#F4F1EB',
+          lineHeight: 1.3,
+          margin: '0 0 24px',
+          letterSpacing: '-0.01em',
+        }}>
+          Building a great company is hard. You shouldn't have to do it alone.
+        </p>
+        <p style={{
+          fontFamily: '"DM Serif Display", Georgia, serif',
+          fontSize: 'clamp(24px, 3vw, 36px)',
+          fontWeight: 400,
+          color: '#F4F1EB',
           lineHeight: 1.45,
           margin: '0 0 40px',
           letterSpacing: '-0.01em',
         }}>
-          We provide the network and infrastructure for Europe's most ambitious founders to scale faster, surrounded by those who have already navigated the path.
+          The best opportunities come from surrounding yourself with exceptional people who challenge your thinking, share hard-earned experience, and support you throughout your journey.
         </p>
         <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.7, margin: 0, maxWidth: 480 }}>
-          O1 Collective is a private network for European founders, investors, and operators building the future from Silicon Valley. A community designed for those who value signal over noise, providing a vetted environment for the valley's most impactful European voices.
+          That's why O1 brings together Europe's most ambitious founders, operators, and investors through curated gatherings, meaningful introductions, and a trusted community built for the long term.
         </p>
+      </div>
+    </section>
+  )
+}
+
+function WhatWeDo() {
+  const items = [
+    { title: 'Curated Relationships', detail: 'Meet exceptional founders, operators, and investors who share your ambition.' },
+    { title: 'Intimate Gatherings', detail: 'Private dinners, roundtables, and conversations designed for meaningful connections—not networking.' },
+    { title: 'Lifelong Community', detail: 'Build relationships that compound throughout your career.' },
+  ]
+
+  return (
+    <section style={{ background: '#F4F1EB', padding: '120px 56px' }}>
+      <div style={{ maxWidth: 1040, margin: '0 auto' }}>
+        <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#A8A49C', textTransform: 'uppercase', display: 'block', marginBottom: 48 }}>
+          What We Do
+        </span>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 48 }}>
+          {items.map((it) => (
+            <div key={it.title} style={{ borderTop: '1px solid #DDD9CF', paddingTop: 24 }}>
+              <h3 style={{
+                fontFamily: '"DM Serif Display", Georgia, serif',
+                fontSize: 22, fontWeight: 400, color: '#1A1815', margin: '0 0 12px',
+              }}>
+                {it.title}
+              </h3>
+              <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.7, margin: 0 }}>
+                {it.detail}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -57,7 +141,19 @@ function Manifesto() {
 
 function MembershipTiers() {
   return (
-    <section style={{ background: '#F4F1EB', padding: '120px 56px' }}>
+    <section id="membership" style={{ background: '#F4F1EB', padding: '120px 56px' }}>
+      <div style={{ maxWidth: 640, margin: '0 auto 64px', textAlign: 'center' }}>
+        <h2 style={{
+          fontFamily: '"DM Serif Display", Georgia, serif',
+          fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 400, color: '#1A1815',
+          margin: '0 0 20px', lineHeight: 1.15,
+        }}>
+          Join O1 Collective
+        </h2>
+        <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.75, margin: 0 }}>
+          Membership is by invitation or application. We're looking for ambitious European founders, operators, and investors committed to helping one another build generational companies.
+        </p>
+      </div>
       <div style={{ maxWidth: 1040, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
 
         {/* Founder Circle */}
@@ -149,123 +245,39 @@ function MembershipTiers() {
   )
 }
 
-function WhoIsIt() {
-  const roles = ['Founders', 'General Partners', 'Operators', 'Angels', 'CEOs']
+function WhoWeBringTogether() {
+  const groups = [
+    { title: 'Founders', detail: 'Building venture-backed technology companies.' },
+    { title: 'Operators', detail: 'Scaling world-class technology businesses.' },
+    { title: 'Investors', detail: 'Backing the next generation of global companies.' },
+  ]
 
   return (
     <section style={{ background: '#EDEAE3', padding: '120px 56px' }}>
-      <div style={{ maxWidth: 1040, display: 'flex', gap: 120, alignItems: 'flex-start' }}>
-        <div style={{ flex: '0 0 auto' }}>
-          <p style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 42, fontWeight: 400, color: '#1A1815', margin: 0, lineHeight: 1.1 }}>
-            $1B+ raised<br />by our members.
-          </p>
-        </div>
-        <div style={{ flex: 1, paddingTop: 4 }}>
-          <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.75, margin: '0 0 40px', maxWidth: 440 }}>
-            Every member is European-born and US-based, working at the frontier of technology. We review applications carefully and keep the community deliberately small.
-          </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 24px' }}>
-            {roles.map((r) => (
-              <span key={r} style={{ fontSize: 13, color: '#A8A49C', borderBottom: '1px solid #C0BCB4', paddingBottom: 2 }}>
-                {r}
-              </span>
-            ))}
-          </div>
+      <div style={{ maxWidth: 1040, margin: '0 auto' }}>
+        <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#A8A49C', textTransform: 'uppercase', display: 'block', marginBottom: 48 }}>
+          Who We Bring Together
+        </span>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 48 }}>
+          {groups.map((g) => (
+            <div key={g.title} style={{ borderTop: '1px solid #D8D4CC', paddingTop: 24 }}>
+              <h3 style={{
+                fontFamily: '"DM Serif Display", Georgia, serif',
+                fontSize: 24, fontWeight: 400, color: '#1A1815', margin: '0 0 12px',
+              }}>
+                {g.title}
+              </h3>
+              <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.7, margin: 0 }}>
+                {g.detail}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   )
 }
 
-function Apply() {
-  return (
-    <section style={{ background: '#1A1815', padding: '140px 56px' }}>
-      <div style={{ maxWidth: 1040, display: 'flex', gap: 100, alignItems: 'center', flexWrap: 'wrap' }}>
-        <div style={{ flex: '1 1 400px', maxWidth: 560 }}>
-          <h2 style={{
-            fontFamily: '"DM Serif Display", Georgia, serif',
-            fontSize: 'clamp(36px, 5vw, 56px)',
-            fontWeight: 400, color: '#F4F1EB',
-            lineHeight: 1.1, margin: '0 0 24px',
-            letterSpacing: '-0.02em',
-          }}>
-            Applications are open.
-          </h2>
-          <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.7, margin: '0 0 56px', maxWidth: 400 }}>
-            We review each application personally and respond within two weeks.
-          </p>
-          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-            <div>
-              <Link href="/apply/founder" style={{
-                display: 'inline-block', padding: '13px 28px',
-                border: '1px solid #3D3A34', color: '#F4F1EB',
-                fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
-              }}>
-                Apply for Founder Circle →
-              </Link>
-              <p style={{ fontSize: 11, color: '#3D3A34', margin: '10px 0 0', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-                Curated cohort
-              </p>
-            </div>
-            <div>
-              <Link href="/apply/general" style={{
-                display: 'inline-block', padding: '13px 28px',
-                background: '#2C2A27', color: '#A8A49C',
-                fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
-              }}>
-                Join as a Member →
-              </Link>
-              <p style={{ fontSize: 11, color: '#3D3A34', margin: '10px 0 0', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-                General membership
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ flex: '1 1 320px', maxWidth: 380 }}>
-          <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.8, margin: '0 0 16px' }}>
-            As we continue to grow, we're always on the lookout for folks who are deeply passionate about establishing the premier community for the next-generation of European leaders in the US.
-          </p>
-          <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.8, margin: 0 }}>
-            You can reach us at{' '}
-            <a href="mailto:community@o1-collective.com" style={{ color: '#F4F1EB', textDecoration: 'underline' }}>
-              community@o1-collective.com
-            </a>{' '}
-            or directly on our LinkedIns if you're interested in becoming more actively involved!
-          </p>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Footer() {
-  return (
-    <footer style={{
-      background: '#1A1815', borderTop: '1px solid #2C2A27',
-      padding: '40px 56px',
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16,
-    }}>
-      <span style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 16, color: '#3D3A34' }}>
-        O1 Collective
-      </span>
-      <div style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
-        <a href="mailto:community@o1-collective.com" style={{ fontSize: 12, color: '#6B6760', textDecoration: 'none' }}>
-          community@o1-collective.com
-        </a>
-        <Link href="/about" style={{ fontSize: 12, color: '#6B6760', textDecoration: 'none' }}>
-          About
-        </Link>
-        <Link href="/past-events" style={{ fontSize: 12, color: '#6B6760', textDecoration: 'none' }}>
-          Events
-        </Link>
-        <Link href="/directory" style={{ fontSize: 12, color: '#6B6760', textDecoration: 'none' }}>
-          Member login
-        </Link>
-      </div>
-    </footer>
-  )
-}
 
 // ─── page ────────────────────────────────────────────────────────────────────
 
@@ -276,12 +288,13 @@ export default function LandingPage() {
       <main>
         <Hero />
         <Manifesto />
+        <WhatWeDo />
+        <WhoWeBringTogether />
         <MembershipTiers />
-        <WhoIsIt />
         <LogoStrip />
-        <Apply />
+        <ApplySection />
       </main>
-      <Footer />
+      <SiteFooter />
     </>
   )
 }

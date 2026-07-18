@@ -35,12 +35,10 @@ const track = [...items, ...items]
 export default function LogoStrip() {
   return (
     <section style={{ background: '#EDEAE3', padding: '48px 0 100px', overflow: 'hidden' }}>
-      <div style={{ borderTop: '1px solid #D8D4CC', paddingTop: 48 }}>
-        <div style={{ maxWidth: 1040, padding: '0 56px' }}>
-          <p style={{ fontSize: 11, letterSpacing: '0.1em', color: '#B8B4AC', textTransform: 'uppercase', margin: '0 0 36px' }}>
-            Members from
-          </p>
-        </div>
+      <div style={{ maxWidth: 1040, padding: '0 56px' }}>
+        <p style={{ fontSize: 11, letterSpacing: '0.1em', color: '#B8B4AC', textTransform: 'uppercase', margin: '0 0 36px' }}>
+          Members from
+        </p>
       </div>
 
       <div style={{ overflow: 'hidden', width: '100%', maskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)' }}>
