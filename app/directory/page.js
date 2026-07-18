@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useLayoutEffect, useState, useMemo, useRef } from 'react'
+import { useEffect, useState, useMemo, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -23,16 +23,65 @@ function initials(name) {
 
 const AVATAR_TONES = ['#C8BFB0', '#B8C4B8', '#C4BCC8', '#C4BEB8', '#B8C0C4']
 
-function Avatar({ member }) {
+function Avatar({ member, size = 44 }) {
   const [err, setErr] = useState(false)
   const tone = AVATAR_TONES[member.name.charCodeAt(0) % AVATAR_TONES.length]
-  const base = { width: 44, height: 44, borderRadius: '50%', flexShrink: 0 }
+  const base = { width: size, height: size, borderRadius: '50%', flexShrink: 0 }
   if (member.avatar && !err) {
     return <img src={member.avatar} alt={member.name} onError={() => setErr(true)} style={{ ...base, objectFit: 'cover' }} />
   }
   return (
     <div style={{ ...base, background: tone, color: '#4A4540', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 500 }}>
       {initials(member.name)}
+    </div>
+  )
+}
+
+const ellipsisLine = { overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }
+
+function MyProfileCard({ me }) {
+  if (!me) return null
+  const titleLine = [me.jobTitle, me.company].filter(Boolean).join(' · ')
+  return (
+    <div style={{ height: 190 }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, marginBottom: 12 }}>
+        <Avatar member={{ name: me.name, avatar: me.avatarUrl }} />
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <p style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 17, color: '#1A1815', height: 20, margin: '0 0 2px', lineHeight: '20px', ...ellipsisLine }}>
+            {me.name}
+          </p>
+          <p style={{ fontSize: 12, color: '#6B6760', height: 16, margin: '0 0 2px', lineHeight: '16px', ...ellipsisLine }}>
+            {titleLine || ' '}
+          </p>
+          <p style={{ fontSize: 12, color: '#A8A49C', height: 16, margin: 0, lineHeight: '16px', ...ellipsisLine }}>
+            {me.location || ' '}
+          </p>
+        </div>
+      </div>
+
+      <p style={{
+        fontSize: 12, color: '#6B6760', lineHeight: 1.6, height: 38, margin: '0 0 10px',
+        display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden',
+      }}>
+        {me.bio}
+      </p>
+
+      <div style={{ height: 18, marginBottom: 8 }}>
+        {me.linkedin && (
+          <a href={me.linkedin} target="_blank" rel="noopener noreferrer"
+            style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#A8A49C', textDecoration: 'none' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>
+            <LinkedInIcon />LinkedIn
+          </a>
+        )}
+      </div>
+
+      <Link href="/profile" style={{ fontSize: 12, color: '#6B6760', textDecoration: 'none' }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')}
+        onMouseLeave={(e) => (e.currentTarget.style.color = '#6B6760')}>
+        Edit profile →
+      </Link>
     </div>
   )
 }
@@ -173,7 +222,7 @@ function FilterDropdown({ allRoles, activeRoles, onToggleRole, onClear }) {
 
 // ─── sidebar modules ─────────────────────────────────────────────────────────
 
-function SidebarModule({ title, children, action, borderRef }) {
+function SidebarModule({ title, children, action }) {
   return (
     <div style={{ marginBottom: 36 }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 16 }}>
@@ -188,16 +237,16 @@ function SidebarModule({ title, children, action, borderRef }) {
           </button>
         )}
       </div>
-      <div ref={borderRef} style={{ borderTop: '1px solid #DDD9CF' }}>
+      <div style={{ borderTop: '1px solid #DDD9CF' }}>
         {children}
       </div>
     </div>
   )
 }
 
-function EventsModule({ events, borderRef }) {
+function EventsModule({ events }) {
   return (
-    <SidebarModule title="Upcoming Events" action={<Link href="/events" style={{ fontSize: 12, color: '#A8A49C', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')} onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>View all →</Link>} borderRef={borderRef}>
+    <SidebarModule title="Upcoming Events" action={<Link href="/events" style={{ fontSize: 12, color: '#A8A49C', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')} onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>View all →</Link>}>
       {events.length === 0 ? (
         <p style={{ fontSize: 13, color: '#C0BCB4', padding: '16px 0', margin: 0 }}>No upcoming events.</p>
       ) : events.slice(0, 4).map((e) => {
@@ -241,6 +290,7 @@ export default function DirectoryPage() {
   const [loading, setLoading] = useState(true)
   const [events, setEvents] = useState([])
   const [isAdmin, setIsAdmin] = useState(false)
+  const [me, setMe] = useState(null)
 
   async function handleSignOut() {
     const supabase = createClient()
@@ -251,25 +301,6 @@ export default function DirectoryPage() {
   const [search, setSearch] = useState('')
   const [activeRoles, setActiveRoles] = useState(new Set())
   const [openId, setOpenId] = useState(null)
-  const [sidebarPaddingTop, setSidebarPaddingTop] = useState(0)
-  const listBorderRef = useRef(null)
-  const sidebarBorderRef = useRef(null)
-
-  // Converges in one render: measures both border lines and closes the gap
-  useLayoutEffect(() => {
-    if (!listBorderRef.current || !sidebarBorderRef.current) return
-    const delta = Math.round(
-      listBorderRef.current.getBoundingClientRect().top -
-      sidebarBorderRef.current.getBoundingClientRect().top
-    )
-    if (delta !== 0) setSidebarPaddingTop((p) => p + delta)
-  })
-
-  useEffect(() => {
-    function onResize() { setSidebarPaddingTop(0) }
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [])
 
   useEffect(() => {
     fetch('/api/events').then((r) => r.json()).then((d) => { if (Array.isArray(d)) setEvents(d) }).catch(() => {})
@@ -279,6 +310,13 @@ export default function DirectoryPage() {
     fetch('/api/admin/me')
       .then((r) => r.json())
       .then((data) => setIsAdmin(data.isAdmin))
+      .catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    fetch('/api/profile')
+      .then((r) => (r.ok ? r.json() : null))
+      .then(setMe)
       .catch(() => {})
   }, [])
 
@@ -334,9 +372,9 @@ export default function DirectoryPage() {
 
         {/* ── Left: directory ── */}
         <div style={{ flex: '1 1 0', minWidth: 0 }}>
-          <div style={{ marginBottom: 52 }}>
+          <div style={{ paddingTop: 40, marginBottom: 52 }}>
             <Image src="/logo_black.png" alt="O1 Collective" width={200} height={44} style={{ display: 'block' }} priority unoptimized />
-            <p style={{ marginTop: 10, fontSize: 14, color: '#A8A49C', letterSpacing: '0.01em' }}>
+            <p style={{ marginTop: 20, fontSize: 14, color: '#A8A49C', letterSpacing: '0.01em' }}>
               A private community of founders, investors &amp; operators
             </p>
           </div>
@@ -358,7 +396,7 @@ export default function DirectoryPage() {
             {loading ? 'LOADING…' : `${filtered.length} MEMBER${filtered.length !== 1 ? 'S' : ''}${members.length !== filtered.length ? ` OF ${members.length}` : ''}`}
           </p>
 
-          <div ref={listBorderRef} style={{ borderTop: '1px solid #DDD9CF' }}>
+          <div style={{ borderTop: '1px solid #DDD9CF' }}>
             {loading ? (
               Array.from({ length: 8 }).map((_, i) => (
                 <div key={i} style={{ borderBottom: '1px solid #DDD9CF', padding: '18px 0', display: 'flex', gap: 14, alignItems: 'center' }}>
@@ -380,8 +418,11 @@ export default function DirectoryPage() {
         </div>
 
         {/* ── Right: sidebar ── */}
-        <div style={{ width: 256, flexShrink: 0, paddingTop: sidebarPaddingTop }}>
-          <EventsModule events={events} borderRef={sidebarBorderRef} />
+        <div style={{ width: 256, flexShrink: 0 }}>
+          <div style={{ paddingTop: 40 }}>
+            <MyProfileCard me={me} />
+          </div>
+          <EventsModule events={events} />
         </div>
 
       </div>

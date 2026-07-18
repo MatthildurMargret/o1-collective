@@ -7,6 +7,34 @@ function adminClient() {
   return createServiceClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY)
 }
 
+export async function GET() {
+  const supabase = await createServerClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const member = await findApprovedMember(user.email)
+  if (!member) {
+    return NextResponse.json({ error: 'This account is not an approved O1 Collective member.' }, { status: 403 })
+  }
+
+  const { data: profile } = await adminClient()
+    .from('profiles')
+    .select('name, job_title, company, location, linkedin, bio, avatar_url, onboarding_complete')
+    .eq('id', user.id)
+    .maybeSingle()
+
+  return NextResponse.json({
+    name: profile?.name || member.name,
+    jobTitle: profile?.job_title || member.jobTitle,
+    company: profile?.company || member.company,
+    location: profile?.location || member.location,
+    linkedin: profile?.linkedin || member.linkedin,
+    bio: profile?.bio || member.description,
+    avatarUrl: profile?.avatar_url || '',
+    onboardingComplete: !!profile?.onboarding_complete,
+  })
+}
+
 export async function POST(request) {
   const supabase = await createServerClient()
   const { data: { user } } = await supabase.auth.getUser()

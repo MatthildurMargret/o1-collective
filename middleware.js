@@ -25,7 +25,7 @@ export async function middleware(request) {
 
   const { pathname } = request.nextUrl
 
-  if (!user && (pathname.startsWith('/directory') || pathname.startsWith('/welcome') || pathname.startsWith('/events') || pathname.startsWith('/admin'))) {
+  if (!user && (pathname.startsWith('/directory') || pathname.startsWith('/welcome') || pathname.startsWith('/events') || pathname.startsWith('/admin') || pathname.startsWith('/profile'))) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)
@@ -40,7 +40,7 @@ export async function middleware(request) {
   // Being authenticated isn't the same as being an approved member — anyone can create a
   // Supabase auth account. Only members who completed /welcome (which itself re-verifies
   // approval server-side) get a profiles row with onboarding_complete set.
-  if (user && (pathname.startsWith('/directory') || pathname.startsWith('/events'))) {
+  if (user && (pathname.startsWith('/directory') || pathname.startsWith('/events') || pathname.startsWith('/profile'))) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('onboarding_complete')
@@ -58,5 +58,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/directory/:path*', '/welcome/:path*', '/events/:path*', '/admin/:path*', '/login'],
+  matcher: ['/directory/:path*', '/welcome/:path*', '/events/:path*', '/admin/:path*', '/profile/:path*', '/login'],
 }
