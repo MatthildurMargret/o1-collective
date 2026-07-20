@@ -37,6 +37,15 @@ export async function middleware(request) {
     return NextResponse.redirect(url)
   }
 
+  if (user && pathname.startsWith('/admin')) {
+    const adminEmails = (process.env.ADMIN_EMAILS ?? '').split(',').map((e) => e.trim().toLowerCase())
+    if (!adminEmails.includes(user.email.toLowerCase())) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/directory'
+      return NextResponse.redirect(url)
+    }
+  }
+
   // Being authenticated isn't the same as being an approved member — anyone can create a
   // Supabase auth account. Only members who completed /welcome (which itself re-verifies
   // approval server-side) get a profiles row with onboarding_complete set.

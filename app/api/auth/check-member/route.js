@@ -28,15 +28,7 @@ export async function GET(request) {
 
   if (!member) return NextResponse.json({ found: false })
 
-  return NextResponse.json({
-    found: true,
-    hasAccount,
-    name: member.name,
-    jobTitle: member.jobTitle,
-    company: member.company,
-    location: member.location,
-    linkedin: member.linkedin,
-    description: member.description,
-    attioId: member.attioId,
-  })
+  // This endpoint is unauthenticated (it powers the pre-login email check), so it must
+  // not leak member PII — only enough to route the user to sign-in vs. account creation.
+  return NextResponse.json({ found: true, hasAccount })
 }
