@@ -40,7 +40,7 @@ export async function GET() {
 
   const { data: profiles } = await adminClient()
     .from('profiles')
-    .select('email, name, job_title, company, location, linkedin, bio, avatar_url')
+    .select('email, name, job_title, company, location, linkedin, bio, avatar_url, hide_email')
 
   const profileByEmail = new Map(
     (profiles ?? [])
@@ -62,6 +62,7 @@ export async function GET() {
         linkedin: profile?.linkedin || v.linkedin?.[0]?.value || '',
         description: profile?.bio || v.description?.[0]?.value || '',
         avatar: profile?.avatar_url || v.avatar_url?.[0]?.value || '',
+        email: profile?.hide_email ? '' : email,
         roles: (v.role_5 ?? []).map((x) => x.option.title),
       }
     })

@@ -114,6 +114,7 @@ export default function ProfileForm({ initialData, headerLabel, headerTitle, hea
     location: initialData.location ?? '',
     linkedin: initialData.linkedin ?? '',
     bio: initialData.bio ?? '',
+    hideEmail: initialData.hideEmail ?? false,
   })
   const [avatarUrl, setAvatarUrl] = useState(initialData.avatarUrl ?? '')
   const [saving, setSaving] = useState(false)
@@ -181,6 +182,21 @@ export default function ProfileForm({ initialData, headerLabel, headerTitle, hea
 
         <Field label="LinkedIn">
           <input type="url" value={form.linkedin} onChange={update('linkedin')} placeholder="https://linkedin.com/in/yourname" style={inputStyle} />
+        </Field>
+
+        <Field label="Email">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, padding: '10px 0', borderBottom: '1px solid #DDD9CF' }}>
+            <span style={{ fontSize: 14, color: '#A8A49C' }}>{initialData.email}</span>
+          </div>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 10, cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={form.hideEmail}
+              onChange={(e) => setForm((f) => ({ ...f, hideEmail: e.target.checked }))}
+              style={{ width: 14, height: 14 }}
+            />
+            <span style={{ fontSize: 13, color: '#6B6760' }}>Hide my email from other members in the directory</span>
+          </label>
         </Field>
 
         <Field label="Bio">

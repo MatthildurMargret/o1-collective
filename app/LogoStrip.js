@@ -1,28 +1,32 @@
 'use client'
 
-const JSDELIVR = 'https://cdn.jsdelivr.net/npm/simple-icons@14/icons'
-
 // Real wordmark/logotype assets — the image already contains the company name.
 const wordmarks = [
-  { name: 'OpenAI',            src: '/logos/openai-wordmark.svg' },
-  { name: 'Anthropic',         src: '/logos/anthropic-wordmark.svg' },
-  { name: 'Slack',             src: '/logos/slack-wordmark.svg' },
-  { name: 'NFX',                src: '/logos/nfx.svg' },
-  { name: 'CRV',                src: '/logos/crv.svg' },
-  { name: 'Andreessen Horowitz', src: '/logos/a16z-wordmark.svg' },
-  { name: 'Carta',              src: '/logos/carta-wordmark.svg' },
-  { name: 'General Catalyst',   src: '/logos/generalcatalyst-wordmark.svg' },
-  { name: 'Emergence Capital',  src: '/logos/emergencecapital-wordmark.png' },
+  { name: 'NFX',                 src: '/logos/nfx.svg' },
+  // Circular badge mark with "crv" lettering inside — needs extra height for the lettering to read.
+  { name: 'CRV',                 src: '/logos/crv.svg', h: 34 },
+  // Two-line stacked wordmark — needs extra height so each line matches the others' scale.
+  { name: 'Andreessen Horowitz', src: '/logos/a16z-wordmark.svg', h: 36 },
+  { name: 'Starcloud',           src: '/logos/starcloud.png' },
+  { name: 'Radical Health',      src: '/logos/radicalhealth.svg' },
+  { name: 'ClassDojo',           src: '/logos/classdojo.svg' },
+  { name: 'Alaris Security',     src: '/logos/alarissecurity.svg' },
+  { name: 'Crosslink',           src: '/logos/crosslinkcapital.svg' },
+  // Two-line stacked wordmark — needs extra height so each line matches the others' scale.
+  { name: 'Montage Ventures',    src: '/logos/montageventures.svg', h: 36 },
+  { name: 'Creandum',            src: '/logos/creandum.svg' },
+  { name: 'Meta',                src: '/logos/meta.svg' },
+  { name: 'OnMe',                src: '/logos/onme.svg' },
+  { name: 'Mercury',             src: '/logos/mercury-v3.png' },
+  { name: 'Legora',              src: '/logos/legora.svg' },
+  { name: 'Lumos',               src: '/logos/lumos.svg' },
+  { name: 'Uncork Capital',      src: '/logos/uncorkcapital.png' },
 ]
 
 // No standalone wordmark available — pair the icon mark with typed company name.
 const iconsWithName = [
-  { name: 'Linear',      src: `${JSDELIVR}/linear.svg` },
-  { name: 'Airbyte',     src: `${JSDELIVR}/airbyte.svg` },
-  { name: 'Sana',        src: '/logos/sana.svg' },
-  { name: 'Valar Labs',  src: '/logos/valarlabs.png' },
-  { name: 'Rillet',      src: '/logos/rillet.png' },
-  { name: 'Listen Labs', src: '/logos/listenlabs.png' },
+  { name: 'Clera',       src: '/logos/clera.png' },
+  { name: 'Nexxa.ai',    src: '/logos/nexxa.png' },
 ]
 
 const items = [
@@ -42,14 +46,14 @@ export default function LogoStrip() {
       </div>
 
       <div style={{ overflow: 'hidden', width: '100%', maskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)' }}>
-        <div className="logo-marquee-track" style={{ display: 'flex', width: 'max-content', gap: 48, alignItems: 'center' }}>
+        <div className="logo-marquee-track" style={{ display: 'flex', width: 'max-content', gap: 80, alignItems: 'center' }}>
           {track.map((l, i) =>
             l.type === 'wordmark' ? (
               <img
                 key={i}
                 src={l.src}
                 alt={l.name}
-                style={{ height: 20, width: 'auto', display: 'block', flexShrink: 0, filter: 'grayscale(1)', opacity: 0.45 }}
+                style={{ height: l.h || 20, width: 'auto', display: 'block', flexShrink: 0, filter: 'grayscale(1)', opacity: 0.45 }}
                 onError={(e) => { e.currentTarget.style.display = 'none' }}
               />
             ) : (
@@ -71,7 +75,7 @@ export default function LogoStrip() {
 
       <style jsx>{`
         .logo-marquee-track {
-          animation: logo-marquee 32s linear infinite;
+          animation: logo-marquee 55s linear infinite;
         }
         .logo-marquee-track:hover {
           animation-play-state: paused;

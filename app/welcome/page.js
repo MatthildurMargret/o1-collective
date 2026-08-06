@@ -29,6 +29,8 @@ export default function WelcomePage() {
         linkedin: data.linkedin ?? '',
         bio: data.description ?? '',
         avatarUrl: '',
+        email: user.email,
+        hideEmail: false,
       })
       setLoading(false)
     }

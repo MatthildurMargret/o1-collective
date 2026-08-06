@@ -19,7 +19,7 @@ export async function GET() {
 
   const { data: profile } = await adminClient()
     .from('profiles')
-    .select('name, job_title, company, location, linkedin, bio, avatar_url, onboarding_complete')
+    .select('name, job_title, company, location, linkedin, bio, avatar_url, onboarding_complete, hide_email')
     .eq('id', user.id)
     .maybeSingle()
 
@@ -31,6 +31,8 @@ export async function GET() {
     linkedin: profile?.linkedin || member.linkedin,
     bio: profile?.bio || member.description,
     avatarUrl: profile?.avatar_url || '',
+    email: user.email,
+    hideEmail: !!profile?.hide_email,
     onboardingComplete: !!profile?.onboarding_complete,
   })
 }
@@ -59,6 +61,7 @@ export async function POST(request) {
       bio: body.bio ?? '',
       attio_id: member.attioId,
       linkedin: body.linkedin || null,
+      hide_email: !!body.hideEmail,
       onboarding_complete: true,
     })
     .select()

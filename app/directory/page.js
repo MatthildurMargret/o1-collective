@@ -94,6 +94,14 @@ function LinkedInIcon() {
   )
 }
 
+function EmailIcon() {
+  return (
+    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 6h18v12H3V6zm0 0l9 7 9-7" />
+    </svg>
+  )
+}
+
 function MemberRow({ member, isOpen, onToggle }) {
   const detailRef = useRef(null)
   const [height, setHeight] = useState(0)
@@ -137,6 +145,14 @@ function MemberRow({ member, isOpen, onToggle }) {
                 : <p style={{ fontSize: 13, fontStyle: 'italic', color: '#C0BCB4', margin: 0 }}>Bio coming soon.</p>}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0, alignItems: 'flex-end' }}>
+              {member.email && (
+                <a href={`mailto:${member.email}`} onClick={(e) => e.stopPropagation()}
+                  style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#A8A49C', textDecoration: 'none' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>
+                  <EmailIcon />{member.email}
+                </a>
+              )}
               {member.linkedin && (
                 <a href={member.linkedin} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}
                   style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#A8A49C', textDecoration: 'none' }}
