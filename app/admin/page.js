@@ -467,7 +467,7 @@ function ApplicationsTab() {
   const [apps, setApps] = useState([])
   const [loading, setLoading] = useState(true)
   const [acting, setActing] = useState(null)
-  const [emailError, setEmailError] = useState('')
+  const [actionError, setActionError] = useState('')
 
   useEffect(() => { load() }, [])
 
@@ -480,13 +480,16 @@ function ApplicationsTab() {
 
   async function decide(id, status) {
     setActing(id)
-    setEmailError('')
+    setActionError('')
     const res = await fetch('/api/admin/applications', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, status }) })
     setActing(null)
     if (res.ok) {
       const updated = await res.json()
       setApps((prev) => prev.map((a) => a.id === id ? updated : a))
-      if (updated.emailError) setEmailError(`Status saved but email failed: ${updated.emailError}`)
+      const errors = []
+      if (updated.emailError) errors.push(`email failed: ${updated.emailError}`)
+      if (updated.attioError) errors.push(`Attio sync failed: ${updated.attioError}`)
+      if (errors.length) setActionError(`Status saved but ${errors.join('; ')}`)
     }
   }
 
@@ -535,7 +538,7 @@ function ApplicationsTab() {
 
   return (
     <>
-      {emailError && <p style={{ fontSize: 12, color: '#B85C5C', margin: '0 0 24px', padding: '12px 16px', background: '#FDF2F2', border: '1px solid #F5C6C6', borderRadius: 4 }}>{emailError}</p>}
+      {actionError && <p style={{ fontSize: 12, color: '#B85C5C', margin: '0 0 24px', padding: '12px 16px', background: '#FDF2F2', border: '1px solid #F5C6C6', borderRadius: 4 }}>{actionError}</p>}
       <Section title="Pending review" count={pending.length}>
         {pending.length === 0 && <p style={{ fontSize: 13, color: '#C0BCB4', padding: '16px 0' }}>No pending applications.</p>}
         {pending.map((a) => <AppRow key={a.id} a={a} />)}

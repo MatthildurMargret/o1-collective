@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
 import { createClient } from '../../../../lib/supabase-server'
 import { sendApprovalEmail, sendRejectionEmail } from '../../../../lib/email'
+import { upsertAttioPersonFromApplication } from '../../../../lib/attio'
 
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS ?? '').split(',').map((e) => e.trim().toLowerCase())
 
@@ -47,13 +48,24 @@ export async function PATCH(request) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
+  const result = { ...data }
+
   try {
     if (status === 'approved') await sendApprovalEmail(data)
     if (status === 'rejected') await sendRejectionEmail(data)
   } catch (e) {
     console.error('Failed to send status email:', e.message)
-    return NextResponse.json({ ...data, emailError: e.message }, { status: 200 })
+    result.emailError = e.message
   }
 
-  return NextResponse.json(data)
+  if (status === 'approved') {
+    try {
+      await upsertAttioPersonFromApplication(data)
+    } catch (e) {
+      console.error('Failed to sync approved application to Attio:', e.message)
+      result.attioError = e.message
+    }
+  }
+
+  return NextResponse.json(result)
 }
