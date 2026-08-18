@@ -4,6 +4,7 @@ import SiteNav from '../SiteNav'
 import SiteFooter from '../SiteFooter'
 import Reveal from '../Reveal'
 import GrainOverlay from '../GrainOverlay'
+import NewsletterSection from '../NewsletterSection'
 
 const pastEvents = [
   {
@@ -197,6 +198,7 @@ export default async function PastEventsPage() {
         </Reveal>
       </main>
 
+      <NewsletterSection />
       <SiteFooter />
     </div>
   )

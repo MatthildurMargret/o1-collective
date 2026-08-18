@@ -4,6 +4,7 @@ import SiteFooter from '../SiteFooter'
 import ApplySection from '../ApplySection'
 import Reveal from '../Reveal'
 import GrainOverlay from '../GrainOverlay'
+import NewsletterSection from '../NewsletterSection'
 
 const founders = [
   {
@@ -103,6 +104,7 @@ export default function AboutPage() {
         </Reveal>
 
         <Reveal><ApplySection /></Reveal>
+        <NewsletterSection background="#2A342A" line="#43503F" inset />
       </main>
       <SiteFooter />
     </div>

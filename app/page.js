@@ -3,6 +3,7 @@ import LogoStrip from './LogoStrip'
 import SiteNav from './SiteNav'
 import SiteFooter from './SiteFooter'
 import ApplySection from './ApplySection'
+import NewsletterSection from './NewsletterSection'
 import Reveal from './Reveal'
 import FlowLines from './FlowLines'
 import CenterLine from './CenterLine'
@@ -172,6 +173,7 @@ function MembershipTiers() {
           padding: '56px 48px',
           display: 'flex', flexDirection: 'column',
           position: 'relative', overflow: 'hidden',
+          borderRadius: 12,
         }}>
           <GrainOverlay />
           <span style={{ position: 'relative', fontSize: 11, letterSpacing: '0.12em', color: '#6B6760', textTransform: 'uppercase', display: 'block', marginBottom: 32 }}>
@@ -216,6 +218,7 @@ function MembershipTiers() {
           background: '#EDEAE3',
           padding: '56px 48px',
           display: 'flex', flexDirection: 'column',
+          borderRadius: 12,
         }}>
           <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#A8A49C', textTransform: 'uppercase', display: 'block', marginBottom: 32 }}>
             General Membership
@@ -311,6 +314,7 @@ export default function LandingPage() {
         <Reveal><MembershipTiers /></Reveal>
         <Reveal><LogoStrip /></Reveal>
         <Reveal><ApplySection /></Reveal>
+        <NewsletterSection background="#2A342A" line="#43503F" inset />
       </main>
       <SiteFooter />
     </>
