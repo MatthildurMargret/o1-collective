@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import GrainOverlay from '../../GrainOverlay'
 
 const inputStyle = {
   width: '100%',
@@ -157,9 +158,10 @@ export default function FounderApplyPage() {
               <button
                 type="submit"
                 disabled={loading}
-                style={{ padding: '14px 32px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.6 : 1, alignSelf: 'flex-start' }}
+                style={{ position: 'relative', overflow: 'hidden', padding: '14px 32px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.6 : 1, alignSelf: 'flex-start' }}
               >
-                {loading ? 'Submitting…' : 'Submit application →'}
+                <GrainOverlay />
+                <span style={{ position: 'relative' }}>{loading ? 'Submitting…' : 'Submit application →'}</span>
               </button>
             </form>
           </>

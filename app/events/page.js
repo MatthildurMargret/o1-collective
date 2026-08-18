@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Reveal from '../Reveal'
 
 function formatDateParts(dateStr) {
   const d = new Date(dateStr + 'T00:00:00')
@@ -58,10 +59,11 @@ export default function EventsPage() {
             ))
           ) : events.length === 0 ? (
             <p style={{ padding: '48px 0', fontSize: 14, color: '#A8A49C' }}>No upcoming events at the moment.</p>
-          ) : events.map((event) => {
+          ) : events.map((event, i) => {
             const { month, day, weekday, full } = formatDateParts(event.event_date)
             return (
-              <div key={event.id} style={{ padding: '24px 0', borderBottom: '1px solid #EDE9E2', display: 'flex', gap: 24, alignItems: 'flex-start' }}>
+              <Reveal key={event.id} delay={Math.min(i, 4) * 60}>
+              <div style={{ padding: '24px 0', borderBottom: '1px solid #EDE9E2', display: 'flex', gap: 24, alignItems: 'flex-start' }}>
                 <div style={{ flexShrink: 0, width: 48, textAlign: 'center' }}>
                   <div style={{ fontSize: 22, fontFamily: '"DM Serif Display", Georgia, serif', color: '#1A1815', lineHeight: 1 }}>{day}</div>
                   <div style={{ fontSize: 10, letterSpacing: '0.06em', color: '#A8A49C', textTransform: 'uppercase', marginTop: 3 }}>{month}</div>
@@ -91,6 +93,7 @@ export default function EventsPage() {
                   )}
                 </div>
               </div>
+              </Reveal>
             )
           })}
         </div>

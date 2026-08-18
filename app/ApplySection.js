@@ -1,9 +1,11 @@
 import Link from 'next/link'
+import GrainOverlay from './GrainOverlay'
 
 export default function ApplySection() {
   return (
-    <section style={{ background: '#1A1815', padding: '140px 56px' }}>
-      <div style={{ maxWidth: 1040, margin: '0 auto', display: 'flex', gap: 100, alignItems: 'center', flexWrap: 'wrap' }}>
+    <section style={{ position: 'relative', overflow: 'hidden', background: '#1A1815', padding: '140px 56px' }}>
+      <GrainOverlay />
+      <div style={{ position: 'relative', maxWidth: 1040, margin: '0 auto', display: 'flex', gap: 100, alignItems: 'center', flexWrap: 'wrap' }}>
         <div style={{ flex: '1 1 400px', maxWidth: 560 }}>
           <h2 style={{
             fontFamily: '"DM Serif Display", Georgia, serif',

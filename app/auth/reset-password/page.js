@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '../../../lib/supabase'
+import GrainOverlay from '../../GrainOverlay'
 
 const inputStyle = {
   width: '100%',
@@ -104,9 +105,10 @@ export default function ResetPasswordPage() {
             <button
               type="submit"
               disabled={loading}
-              style={{ padding: '13px 28px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.6 : 1, alignSelf: 'flex-start' }}
+              style={{ position: 'relative', overflow: 'hidden', padding: '13px 28px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.6 : 1, alignSelf: 'flex-start' }}
             >
-              {loading ? 'Saving…' : 'Save password →'}
+              <GrainOverlay />
+              <span style={{ position: 'relative' }}>{loading ? 'Saving…' : 'Save password →'}</span>
             </button>
           </form>
         </div>

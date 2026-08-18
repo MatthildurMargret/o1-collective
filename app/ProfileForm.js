@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import GrainOverlay from './GrainOverlay'
 
 const inputStyle = {
   width: '100%',
@@ -225,9 +226,10 @@ export default function ProfileForm({ initialData, headerLabel, headerTitle, hea
           <button
             type="submit"
             disabled={saving}
-            style={{ padding: '13px 32px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: saving ? 'default' : 'pointer', opacity: saving ? 0.6 : 1 }}
+            style={{ position: 'relative', overflow: 'hidden', padding: '13px 32px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: saving ? 'default' : 'pointer', opacity: saving ? 0.6 : 1 }}
           >
-            {saving ? 'Saving…' : submitLabel}
+            <GrainOverlay />
+            <span style={{ position: 'relative' }}>{saving ? 'Saving…' : submitLabel}</span>
           </button>
         </div>
       </form>

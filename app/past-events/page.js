@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { getUpcomingEvents } from '../../lib/events'
 import SiteNav from '../SiteNav'
 import SiteFooter from '../SiteFooter'
+import Reveal from '../Reveal'
+import GrainOverlay from '../GrainOverlay'
 
 const pastEvents = [
   {
@@ -161,11 +163,14 @@ export default async function PastEventsPage() {
           )}
         </div>
 
+        <Reveal>
         <div style={{ marginBottom: 8 }}>
           <SectionLabel>Past</SectionLabel>
           <Timeline>{pastEvents.map((e) => <EventCard key={e.title} event={e} />)}</Timeline>
         </div>
+        </Reveal>
 
+        <Reveal>
         <div style={{ padding: '48px 0 96px' }}>
           <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.7, margin: '0 0 24px', maxWidth: 440 }}>
             Apply for membership to get access to exclusive O1 Collective dinners, fireside chats, and gatherings.
@@ -179,14 +184,17 @@ export default async function PastEventsPage() {
               Apply for Founder Circle →
             </Link>
             <Link href="/apply/general" style={{
+              position: 'relative', overflow: 'hidden',
               display: 'inline-block', padding: '13px 28px',
               background: '#1A1815', color: '#F4F1EB',
               fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
             }}>
-              Join as a Member →
+              <GrainOverlay />
+              <span style={{ position: 'relative' }}>Join as a Member →</span>
             </Link>
           </div>
         </div>
+        </Reveal>
       </main>
 
       <SiteFooter />

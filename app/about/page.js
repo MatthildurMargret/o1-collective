@@ -2,6 +2,8 @@ import Image from 'next/image'
 import SiteNav from '../SiteNav'
 import SiteFooter from '../SiteFooter'
 import ApplySection from '../ApplySection'
+import Reveal from '../Reveal'
+import GrainOverlay from '../GrainOverlay'
 
 const founders = [
   {
@@ -52,8 +54,10 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section style={{ background: '#1A1815', padding: '100px 56px' }}>
-          <div style={{ maxWidth: 680 }}>
+        <Reveal>
+        <section style={{ position: 'relative', overflow: 'hidden', background: '#1A1815', padding: '100px 56px' }}>
+          <GrainOverlay />
+          <div style={{ position: 'relative', maxWidth: 680 }}>
             <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#6B6760', textTransform: 'uppercase', display: 'block', marginBottom: 32 }}>
               Our Belief
             </span>
@@ -66,7 +70,9 @@ export default function AboutPage() {
             </p>
           </div>
         </section>
+        </Reveal>
 
+        <Reveal>
         <section style={{ maxWidth: 1040, padding: '96px 56px 140px' }}>
           <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#A8A49C', textTransform: 'uppercase', display: 'block', marginBottom: 40 }}>
             Meet the Team
@@ -94,8 +100,9 @@ export default function AboutPage() {
           ))}
           </div>
         </section>
+        </Reveal>
 
-        <ApplySection />
+        <Reveal><ApplySection /></Reveal>
       </main>
       <SiteFooter />
     </div>

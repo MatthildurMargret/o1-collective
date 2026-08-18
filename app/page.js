@@ -3,6 +3,11 @@ import LogoStrip from './LogoStrip'
 import SiteNav from './SiteNav'
 import SiteFooter from './SiteFooter'
 import ApplySection from './ApplySection'
+import Reveal from './Reveal'
+import FlowLines from './FlowLines'
+import CenterLine from './CenterLine'
+import GrainOverlay from './GrainOverlay'
+import ServiceProviderAccordion from './ServiceProviderAccordion'
 
 // ─── sections ────────────────────────────────────────────────────────────────
 
@@ -58,11 +63,13 @@ function Hero() {
         </div>
 
         <Link href="#membership" style={{
+          position: 'relative', overflow: 'hidden',
           display: 'inline-block', padding: '13px 28px',
           background: '#1A1815', color: '#F4F1EB',
           fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
         }}>
-          Apply for Membership →
+          <GrainOverlay />
+          <span style={{ position: 'relative' }}>Apply for Membership →</span>
         </Link>
       </div>
     </section>
@@ -72,10 +79,13 @@ function Hero() {
 function Manifesto() {
   return (
     <section style={{
+      position: 'relative',
       background: '#1A1815',
       padding: '120px 56px',
+      overflow: 'hidden',
     }}>
-      <div style={{ maxWidth: 680 }}>
+      <GrainOverlay />
+      <div style={{ maxWidth: 680, position: 'relative' }}>
         <p style={{
           fontFamily: '"DM Serif Display", Georgia, serif',
           fontSize: 'clamp(24px, 3vw, 36px)',
@@ -114,7 +124,7 @@ function WhatWeDo() {
   ]
 
   return (
-    <section style={{ background: '#F4F1EB', padding: '120px 56px' }}>
+    <section style={{ background: '#F4F1EB', padding: '40px 56px 48px' }}>
       <div style={{ maxWidth: 1040, margin: '0 auto' }}>
         <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#A8A49C', textTransform: 'uppercase', display: 'block', marginBottom: 48 }}>
           What We Do
@@ -141,7 +151,7 @@ function WhatWeDo() {
 
 function MembershipTiers() {
   return (
-    <section id="membership" style={{ background: '#F4F1EB', padding: '120px 56px' }}>
+    <section id="membership" style={{ background: '#F4F1EB', padding: '40px 56px 120px' }}>
       <div style={{ maxWidth: 640, margin: '0 auto 64px', textAlign: 'center' }}>
         <h2 style={{
           fontFamily: '"DM Serif Display", Georgia, serif',
@@ -161,23 +171,26 @@ function MembershipTiers() {
           background: '#1A1815',
           padding: '56px 48px',
           display: 'flex', flexDirection: 'column',
+          position: 'relative', overflow: 'hidden',
         }}>
-          <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#6B6760', textTransform: 'uppercase', display: 'block', marginBottom: 32 }}>
+          <GrainOverlay />
+          <span style={{ position: 'relative', fontSize: 11, letterSpacing: '0.12em', color: '#6B6760', textTransform: 'uppercase', display: 'block', marginBottom: 32 }}>
             Founder Circle
           </span>
           <h3 style={{
+            position: 'relative',
             fontFamily: '"DM Serif Display", Georgia, serif',
             fontSize: 32, fontWeight: 400, color: '#F4F1EB',
             margin: '0 0 20px', lineHeight: 1.15,
           }}>
             A curated cohort for<br />ambitious founders.
           </h3>
-          <p style={{ fontSize: 14, color: '#6B6760', lineHeight: 1.75, margin: '0 0 40px' }}>
+          <p style={{ position: 'relative', fontSize: 14, color: '#6B6760', lineHeight: 1.75, margin: '0 0 40px' }}>
             A high-conviction, invitation-reviewed circle. Small by design. High-trust by default.
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 48 }}>
+          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 48 }}>
+            <ServiceProviderAccordion />
             {[
-              { label: 'Service provider discounts', detail: 'Pebble, Deel, OpenAI credits, immigration lawyers' },
               { label: 'First priority access', detail: 'All events, dinners, and curated programming' },
               { label: 'Advisor & mentor network', detail: 'Exclusive introductions to seasoned operators and investors' },
             ].map((b) => (
@@ -187,7 +200,7 @@ function MembershipTiers() {
               </div>
             ))}
           </div>
-          <div style={{ marginTop: 'auto' }}>
+          <div style={{ position: 'relative', marginTop: 'auto' }}>
             <Link href="/apply/founder" style={{
               display: 'inline-block', padding: '12px 24px',
               border: '1px solid #3D3A34', color: '#F4F1EB',
@@ -231,11 +244,13 @@ function MembershipTiers() {
           </div>
           <div style={{ marginTop: 'auto' }}>
             <Link href="/apply/general" style={{
+              position: 'relative', overflow: 'hidden',
               display: 'inline-block', padding: '12px 24px',
               background: '#1A1815', color: '#F4F1EB',
               fontSize: 13, textDecoration: 'none', borderRadius: 4, letterSpacing: '0.01em',
             }}>
-              Join as a Member →
+              <GrainOverlay />
+              <span style={{ position: 'relative' }}>Join as a Member →</span>
             </Link>
           </div>
         </div>
@@ -253,14 +268,14 @@ function WhoWeBringTogether() {
   ]
 
   return (
-    <section style={{ background: '#EDEAE3', padding: '120px 56px' }}>
+    <section style={{ background: '#F4F1EB', padding: '48px 56px 120px' }}>
       <div style={{ maxWidth: 1040, margin: '0 auto' }}>
         <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#A8A49C', textTransform: 'uppercase', display: 'block', marginBottom: 48 }}>
           Who We Bring Together
         </span>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 48 }}>
           {groups.map((g) => (
-            <div key={g.title} style={{ borderTop: '1px solid #D8D4CC', paddingTop: 24 }}>
+            <div key={g.title} style={{ borderTop: '1px solid #DDD9CF', paddingTop: 24 }}>
               <h3 style={{
                 fontFamily: '"DM Serif Display", Georgia, serif',
                 fontSize: 24, fontWeight: 400, color: '#1A1815', margin: '0 0 12px',
@@ -287,12 +302,15 @@ export default function LandingPage() {
       <SiteNav priority />
       <main>
         <Hero />
-        <Manifesto />
-        <WhatWeDo />
-        <WhoWeBringTogether />
-        <MembershipTiers />
-        <LogoStrip />
-        <ApplySection />
+        <Reveal><Manifesto /></Reveal>
+        <FlowLines />
+        <Reveal><WhatWeDo /></Reveal>
+        <CenterLine />
+        <Reveal><WhoWeBringTogether /></Reveal>
+        <FlowLines mirror background="#F4F1EB" />
+        <Reveal><MembershipTiers /></Reveal>
+        <Reveal><LogoStrip /></Reveal>
+        <Reveal><ApplySection /></Reveal>
       </main>
       <SiteFooter />
     </>

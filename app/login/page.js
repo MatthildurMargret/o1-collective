@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '../../lib/supabase'
+import GrainOverlay from '../GrainOverlay'
 
 const inputStyle = {
   width: '100%',
@@ -198,9 +199,10 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  style={{ padding: '13px 28px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.6 : 1, alignSelf: 'flex-start' }}
+                  style={{ position: 'relative', overflow: 'hidden', padding: '13px 28px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.6 : 1, alignSelf: 'flex-start' }}
                 >
-                  {loading ? 'Checking…' : 'Continue →'}
+                  <GrainOverlay />
+                  <span style={{ position: 'relative' }}>{loading ? 'Checking…' : 'Continue →'}</span>
                 </button>
               </form>
             </>
@@ -234,9 +236,10 @@ export default function LoginPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <button
                   onClick={() => { setStep('do-signin'); setError('') }}
-                  style={{ padding: '16px 24px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: 'pointer', textAlign: 'left' }}
+                  style={{ position: 'relative', overflow: 'hidden', padding: '16px 24px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: 'pointer', textAlign: 'left' }}
                 >
-                  Sign in — I already have an account →
+                  <GrainOverlay />
+                  <span style={{ position: 'relative' }}>Sign in — I already have an account →</span>
                 </button>
                 <button
                   onClick={() => { setStep('create'); setError(''); setPassword(''); setConfirm('') }}
@@ -290,9 +293,10 @@ export default function LoginPage() {
                     <button
                       type="submit"
                       disabled={loading}
-                      style={{ padding: '13px 28px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.6 : 1, alignSelf: 'flex-start' }}
+                      style={{ position: 'relative', overflow: 'hidden', padding: '13px 28px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.6 : 1, alignSelf: 'flex-start' }}
                     >
-                      {loading ? 'Signing in…' : 'Sign in →'}
+                      <GrainOverlay />
+                      <span style={{ position: 'relative' }}>{loading ? 'Signing in…' : 'Sign in →'}</span>
                     </button>
                     <button
                       type="button"
@@ -360,9 +364,10 @@ export default function LoginPage() {
                     <button
                       type="submit"
                       disabled={loading}
-                      style={{ padding: '13px 28px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.6 : 1, alignSelf: 'flex-start' }}
+                      style={{ position: 'relative', overflow: 'hidden', padding: '13px 28px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.6 : 1, alignSelf: 'flex-start' }}
                     >
-                      {loading ? 'Creating account…' : 'Create account →'}
+                      <GrainOverlay />
+                      <span style={{ position: 'relative' }}>{loading ? 'Creating account…' : 'Create account →'}</span>
                     </button>
                     <button
                       type="button"
@@ -403,9 +408,10 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    style={{ padding: '13px 28px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.6 : 1, alignSelf: 'flex-start' }}
+                    style={{ position: 'relative', overflow: 'hidden', padding: '13px 28px', background: '#1A1815', color: '#F4F1EB', fontSize: 13, border: 'none', borderRadius: 4, letterSpacing: '0.01em', cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.6 : 1, alignSelf: 'flex-start' }}
                   >
-                    {loading ? 'Sending…' : 'Send reset link →'}
+                    <GrainOverlay />
+                    <span style={{ position: 'relative' }}>{loading ? 'Sending…' : 'Send reset link →'}</span>
                   </button>
                 </form>
               )}
