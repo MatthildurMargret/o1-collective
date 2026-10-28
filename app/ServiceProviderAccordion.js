@@ -6,6 +6,7 @@ const POINTS = [
   '$5K in OpenAI credits.',
   'Up to $5,000 in Deel credits, plus free US payroll for founders for life for a limited time.',
   'Free ACH and USD wires, cashback credit cards from day one, up to 3.88% yield with Mercury Treasury, plus a $500 bonus after $10K of card spend in your first 90 days.',
+  '$1,000 off your first immigration application with Ellis.',
 ]
 
 export default function ServiceProviderAccordion() {
@@ -27,7 +28,7 @@ export default function ServiceProviderAccordion() {
             Service provider discounts
           </p>
           <p style={{ fontSize: 12, color: '#6B6760', margin: 0, lineHeight: 1.6 }}>
-            Mercury, Deel, OpenAI
+            Mercury, Deel, OpenAI, Ellis
           </p>
         </span>
         <span

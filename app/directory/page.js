@@ -307,6 +307,7 @@ export default function DirectoryPage() {
   const [events, setEvents] = useState([])
   const [isAdmin, setIsAdmin] = useState(false)
   const [me, setMe] = useState(null)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   async function handleSignOut() {
     const supabase = createClient()
@@ -372,29 +373,66 @@ export default function DirectoryPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#F4F1EB' }}>
-      <div style={{ position: 'fixed', top: 32, right: 'max(48px, calc((100vw - 1160px) / 2 + 48px))', display: 'flex', alignItems: 'center', gap: 24, zIndex: 50 }}>
-        {isAdmin && (
-          <Link href="/admin" style={{ fontSize: 14, color: '#A8A49C', textDecoration: 'none', letterSpacing: '0.01em' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>
-            Admin
-          </Link>
-        )}
-        <button onClick={handleSignOut} style={{ fontSize: 13, color: '#6B6760', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.01em' }}>
-          Sign out →
+      <div style={{ position: 'fixed', top: 24, right: 'max(var(--px-sm), calc((100vw - 1160px) / 2 + 48px))', display: 'flex', alignItems: 'center', gap: 16, zIndex: 56 }}>
+        <div className="directory-actions-desktop">
+          {isAdmin && (
+            <Link href="/admin" style={{ fontSize: 14, color: '#A8A49C', textDecoration: 'none', letterSpacing: '0.01em' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#1A1815')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '#A8A49C')}>
+              Admin
+            </Link>
+          )}
+          <button onClick={handleSignOut} style={{ fontSize: 13, color: '#6B6760', background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '0.01em' }}>
+            Sign out →
+          </button>
+        </div>
+
+        <button
+          className="directory-menu-toggle"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((v) => !v)}
+          style={{ background: 'none', border: 'none', padding: 8, margin: '-8px', cursor: 'pointer' }}
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            {menuOpen ? (
+              <path d="M4 4l12 12M16 4L4 16" stroke="#1A1815" strokeWidth="1.4" strokeLinecap="round" />
+            ) : (
+              <path d="M3 6h14M3 10h14M3 14h14" stroke="#1A1815" strokeWidth="1.4" strokeLinecap="round" />
+            )}
+          </svg>
         </button>
       </div>
-      <div style={{ maxWidth: 1160, margin: '0 auto', padding: '80px 48px 120px', display: 'flex', gap: 120, alignItems: 'flex-start' }}>
+      <div className="directory-layout" style={{ maxWidth: 1160, margin: '0 auto', padding: '80px var(--px-sm) 120px' }}>
 
-        {/* ── Left: directory ── */}
-        <div style={{ flex: '1 1 0', minWidth: 0 }}>
-          <div style={{ paddingTop: 40, marginBottom: 52 }}>
-            <Image src="/logo_black.png" alt="O1 Collective" width={200} height={44} style={{ display: 'block' }} priority unoptimized />
-            <p style={{ marginTop: 20, fontSize: 14, color: '#A8A49C', letterSpacing: '0.01em' }}>
-              A private community of founders, investors &amp; operators
-            </p>
+        {/* ── Logo + subtitle ── */}
+        <div className="directory-header" style={{ paddingTop: 40, marginBottom: 52 }}>
+          <Image src="/logo_black.png" alt="O1 Collective" width={200} height={44} style={{ display: 'block' }} priority unoptimized />
+          <p style={{ marginTop: 20, fontSize: 14, color: '#A8A49C', letterSpacing: '0.01em' }}>
+            A private community of founders, investors &amp; operators
+          </p>
+        </div>
+
+        {/* ── Profile card + upcoming events (+ admin/sign-out, on mobile) ── */}
+        <div className={`directory-sidebar${menuOpen ? ' menu-open' : ''}`}>
+          <div className="directory-mobile-actions">
+            {isAdmin && (
+              <Link href="/admin" onClick={() => setMenuOpen(false)} style={{ fontSize: 14, color: '#6B6760', textDecoration: 'none', letterSpacing: '0.01em' }}>
+                Admin
+              </Link>
+            )}
+            <button onClick={() => { setMenuOpen(false); handleSignOut() }} style={{ fontSize: 14, color: '#6B6760', background: 'none', border: 'none', padding: 0, cursor: 'pointer', letterSpacing: '0.01em' }}>
+              Sign out →
+            </button>
           </div>
+          <div className="directory-profile-spacer">
+            <MyProfileCard me={me} />
+          </div>
+          <EventsModule events={events} />
+        </div>
 
+        {/* ── Member list ── */}
+        <div className="directory-list" style={{ minWidth: 0 }}>
           {/* Controls */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 32 }}>
             <div style={{ flex: 1, position: 'relative' }}>
@@ -431,14 +469,6 @@ export default function DirectoryPage() {
               ))
             )}
           </div>
-        </div>
-
-        {/* ── Right: sidebar ── */}
-        <div style={{ width: 256, flexShrink: 0 }}>
-          <div style={{ paddingTop: 40 }}>
-            <MyProfileCard me={me} />
-          </div>
-          <EventsModule events={events} />
         </div>
 
       </div>

@@ -148,7 +148,7 @@ export default function ProfileForm({ initialData, headerLabel, headerTitle, hea
   }
 
   return (
-    <main style={{ maxWidth: 560, margin: '0 auto', padding: '64px 48px 120px' }}>
+    <main style={{ maxWidth: 560, margin: '0 auto', padding: '64px var(--px-sm) 120px' }}>
       <div style={{ marginBottom: 56 }}>
         <p style={{ fontSize: 12, letterSpacing: '0.1em', color: '#A8A49C', textTransform: 'uppercase', margin: '0 0 16px' }}>
           {headerLabel}
@@ -168,7 +168,7 @@ export default function ProfileForm({ initialData, headerLabel, headerTitle, hea
           <input type="text" required value={form.name} onChange={update('name')} style={inputStyle} />
         </Field>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
+        <div className="form-grid-2">
           <Field label="Job title">
             <input type="text" required value={form.jobTitle} onChange={update('jobTitle')} style={inputStyle} />
           </Field>

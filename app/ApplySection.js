@@ -3,9 +3,9 @@ import GrainOverlay from './GrainOverlay'
 
 export default function ApplySection() {
   return (
-    <section style={{ position: 'relative', overflow: 'hidden', background: '#1A1815', padding: '140px 56px' }}>
+    <section style={{ position: 'relative', overflow: 'hidden', background: '#1A1815', padding: 'var(--py-140) var(--px)' }}>
       <GrainOverlay />
-      <div style={{ position: 'relative', maxWidth: 1040, margin: '0 auto', display: 'flex', gap: 100, alignItems: 'center', flexWrap: 'wrap' }}>
+      <div style={{ position: 'relative', maxWidth: 1040, margin: '0 auto', display: 'flex', gap: '56px 100px', alignItems: 'center', flexWrap: 'wrap' }}>
         <div style={{ flex: '1 1 400px', maxWidth: 560 }}>
           <h2 style={{
             fontFamily: '"DM Serif Display", Georgia, serif',

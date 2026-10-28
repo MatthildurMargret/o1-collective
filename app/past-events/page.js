@@ -61,9 +61,9 @@ const pastEvents = [
 
 function EventCard({ event }) {
   return (
-    <div style={{ display: 'flex', gap: 40 }}>
-      <div style={{ display: 'flex', gap: 28, padding: '40px 0', borderBottom: '1px solid #DDD9CF', width: 532, flexShrink: 0 }}>
-        <div style={{ flexShrink: 0, width: 64, textAlign: 'center', paddingTop: 4 }}>
+    <div className="event-card">
+      <div className="event-card-main">
+        <div className="event-card-date">
           <div style={{ fontSize: 30, fontFamily: '"DM Serif Display", Georgia, serif', color: '#1A1815', lineHeight: 1 }}>
             {event.day}
           </div>
@@ -73,7 +73,7 @@ function EventCard({ event }) {
           <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#1A1815', margin: '14px auto 0', position: 'relative', zIndex: 1 }} />
         </div>
 
-        <div style={{ flexShrink: 0, width: 440 }}>
+        <div className="event-card-body">
           <h3 style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 24, fontWeight: 400, color: '#1A1815', margin: '0 0 8px', lineHeight: 1.25 }}>
             {event.title}
           </h3>
@@ -91,11 +91,13 @@ function EventCard({ event }) {
         </div>
       </div>
 
-      <div style={{ flex: 1, display: 'flex', gap: 12, flexWrap: 'wrap', alignContent: 'flex-start', paddingTop: 40 }}>
-        {event.photos.map((src, i) => (
-          <img key={i} src={src} alt="" style={{ width: 160, height: 160, objectFit: 'cover', borderRadius: 4 }} />
-        ))}
-      </div>
+      {event.photos.length > 0 && (
+        <div className="event-card-photos">
+          {event.photos.map((src, i) => (
+            <img key={i} src={src} alt="" style={{ width: 160, height: 160, maxWidth: '100%', objectFit: 'cover', borderRadius: 4 }} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -106,8 +108,8 @@ function UpcomingEventCard({ event }) {
   const day = d.getDate()
 
   return (
-    <div style={{ display: 'flex', gap: 28, padding: '40px 0', borderBottom: '1px solid #DDD9CF', width: 532 }}>
-      <div style={{ flexShrink: 0, width: 64, textAlign: 'center', paddingTop: 4 }}>
+    <div className="event-card-main" style={{ maxWidth: '100%' }}>
+      <div className="event-card-date">
         <div style={{ fontSize: 30, fontFamily: '"DM Serif Display", Georgia, serif', color: '#1A1815', lineHeight: 1 }}>
           {day}
         </div>
@@ -117,7 +119,7 @@ function UpcomingEventCard({ event }) {
         <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#1A1815', margin: '14px auto 0', position: 'relative', zIndex: 1 }} />
       </div>
 
-      <div style={{ flexShrink: 0, width: 440 }}>
+      <div className="event-card-body">
         <h3 style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 24, fontWeight: 400, color: '#1A1815', margin: '0 0 8px', lineHeight: 1.25 }}>
           {event.title}
         </h3>
@@ -152,7 +154,7 @@ export default async function PastEventsPage() {
   return (
     <div style={{ minHeight: '100vh', background: '#F4F1EB' }}>
       <SiteNav />
-      <main style={{ maxWidth: 1040, padding: '48px 56px 0' }}>
+      <main style={{ maxWidth: 1040, padding: '48px var(--px) 0' }}>
         <div style={{ marginBottom: 40, paddingTop: 40 }}>
           <SectionLabel>Upcoming</SectionLabel>
           {upcomingEvents.length === 0 ? (

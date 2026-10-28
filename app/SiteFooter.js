@@ -6,14 +6,14 @@ export default function SiteFooter() {
     <footer style={{
       position: 'relative', overflow: 'hidden',
       background: '#1A1815', borderTop: '1px solid #2C2A27',
-      padding: '40px 56px',
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16,
+      padding: '40px var(--px)',
+      display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px 32px',
     }}>
       <GrainOverlay />
       <span style={{ position: 'relative', fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 16, color: '#3D3A34' }}>
         O1 Collective
       </span>
-      <div style={{ position: 'relative', display: 'flex', gap: 32, alignItems: 'center' }}>
+      <div style={{ position: 'relative', display: 'flex', flexWrap: 'wrap', gap: '8px 24px', alignItems: 'center' }}>
         <a href="mailto:community@o1-collective.com" style={{ fontSize: 14, color: '#6B6760', textDecoration: 'none' }}>
           community@o1-collective.com
         </a>

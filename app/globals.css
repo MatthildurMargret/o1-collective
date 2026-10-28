@@ -16,9 +16,221 @@
   --text-1: #1A1815;
   --text-2: #6B6760;
   --text-3: #A8A49C;
+
+  /* responsive section spacing — swapped for tighter values on small screens */
+  --px: 56px;
+  --px-sm: 48px;
+  --card-px: 48px;
+  --py-80: 80px;
+  --py-96: 96px;
+  --py-100: 100px;
+  --py-120: 120px;
+  --py-140: 140px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --px: 20px;
+    --px-sm: 20px;
+    --card-px: 28px;
+    --py-80: 48px;
+    --py-96: 48px;
+    --py-100: 56px;
+    --py-120: 64px;
+    --py-140: 72px;
+  }
 }
 
 body {
   background-color: var(--bg);
   color: var(--text-1);
+  overflow-x: hidden;
+}
+
+/* ─── responsive layout helpers ──────────────────────────────────────────── */
+
+.site-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-toggle {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .nav-toggle { display: flex; align-items: center; }
+
+  .site-nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    background: #EDEAE3;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 12px 24px rgba(26, 24, 21, 0.08);
+    padding: 20px var(--px) 28px;
+    z-index: 40;
+  }
+  .site-nav-links.nav-open { display: flex; }
+}
+
+.nav-logo {
+  display: block;
+  width: 180px;
+  height: auto;
+}
+@media (max-width: 480px) {
+  .nav-logo { width: 130px; }
+}
+
+.tiers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+@media (max-width: 760px) {
+  .tiers-grid { grid-template-columns: 1fr; }
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+@media (max-width: 920px) {
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .team-grid { grid-template-columns: 1fr; }
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+@media (max-width: 480px) {
+  .form-grid-2 { grid-template-columns: 1fr; }
+}
+
+/* desktop: logo+subtitle and the member list stack in the left column,
+   profile card + upcoming events form a full-height right column */
+.directory-layout {
+  display: grid;
+  grid-template-columns: 1fr 256px;
+  grid-template-areas:
+    "header  sidebar"
+    "list    sidebar";
+  column-gap: 120px;
+  row-gap: 0;
+  align-items: start;
+}
+.directory-header { grid-area: header; }
+.directory-sidebar { grid-area: sidebar; }
+.directory-list { grid-area: list; min-width: 0; }
+
+.directory-actions-desktop {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.directory-menu-toggle {
+  display: none;
+}
+.directory-mobile-actions {
+  display: none;
+}
+.directory-profile-spacer {
+  padding-top: 40px;
+}
+
+@media (max-width: 900px) {
+  /* below 900px the admin/sign-out buttons and the profile card + upcoming
+     events move behind a single toggle, so they don't eat space above a
+     member list that only grows longer */
+  .directory-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "list";
+    row-gap: 24px;
+  }
+
+  .directory-actions-desktop { display: none; }
+  .directory-menu-toggle { display: flex; align-items: center; }
+
+  .directory-sidebar {
+    display: none;
+    position: fixed;
+    top: 76px;
+    left: var(--px-sm);
+    right: var(--px-sm);
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    background: #EDEAE3;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 16px 32px rgba(26, 24, 21, 0.12);
+    padding: 20px 24px 28px;
+    z-index: 55;
+  }
+  .directory-sidebar.menu-open { display: block; }
+
+  .directory-mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .directory-profile-spacer { padding-top: 16px; }
+}
+
+.event-card {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.event-card-main {
+  display: flex;
+  gap: 28px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--border);
+  flex: 1 1 320px;
+  max-width: 532px;
+}
+@media (max-width: 480px) {
+  .event-card-main { gap: 16px; }
+}
+
+.event-card-date {
+  flex-shrink: 0;
+  width: 64px;
+  text-align: center;
+  padding-top: 4px;
+}
+
+.event-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.event-card-photos {
+  flex: 1 1 240px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding-top: 40px;
+}
+@media (max-width: 760px) {
+  .event-card-photos { padding-top: 0; padding-bottom: 32px; }
 }

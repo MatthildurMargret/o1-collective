@@ -27,7 +27,7 @@ export default function EventsPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#F4F1EB' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '32px 56px' }}>
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, padding: '24px var(--px)' }}>
         <Link href="/directory" style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 18, color: '#1A1815', letterSpacing: '-0.01em', textDecoration: 'none' }}>
           O1 Collective
         </Link>
@@ -36,9 +36,9 @@ export default function EventsPage() {
         </Link>
       </nav>
 
-      <main style={{ maxWidth: 640, margin: '0 auto', padding: '48px 48px 120px' }}>
+      <main style={{ maxWidth: 640, margin: '0 auto', padding: '48px var(--px-sm) 120px' }}>
         <div style={{ marginBottom: 52 }}>
-          <h1 style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 48, fontWeight: 400, color: '#1A1815', margin: 0, lineHeight: 1.1 }}>
+          <h1 style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 'clamp(32px, 9vw, 48px)', fontWeight: 400, color: '#1A1815', margin: 0, lineHeight: 1.1 }}>
             Upcoming events
           </h1>
           <p style={{ marginTop: 10, fontSize: 14, color: '#A8A49C' }}>

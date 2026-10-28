@@ -37,7 +37,7 @@ export default function AboutPage() {
     <div style={{ minHeight: '100vh', background: '#F4F1EB', display: 'flex', flexDirection: 'column' }}>
       <SiteNav />
       <main style={{ flex: 1 }}>
-        <section style={{ padding: '48px 56px 96px' }}>
+        <section style={{ padding: '48px var(--px) var(--py-96)' }}>
           <div style={{ maxWidth: 640 }}>
             <h1 style={{
               fontFamily: '"DM Serif Display", Georgia, serif',
@@ -56,7 +56,7 @@ export default function AboutPage() {
         </section>
 
         <Reveal>
-        <section style={{ position: 'relative', overflow: 'hidden', background: '#1A1815', padding: '100px 56px' }}>
+        <section style={{ position: 'relative', overflow: 'hidden', background: '#1A1815', padding: 'var(--py-100) var(--px)' }}>
           <GrainOverlay />
           <div style={{ position: 'relative', maxWidth: 680 }}>
             <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#6B6760', textTransform: 'uppercase', display: 'block', marginBottom: 32 }}>
@@ -74,11 +74,11 @@ export default function AboutPage() {
         </Reveal>
 
         <Reveal>
-        <section style={{ maxWidth: 1040, padding: '96px 56px 140px' }}>
+        <section style={{ maxWidth: 1040, padding: 'var(--py-96) var(--px) var(--py-140)' }}>
           <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#A8A49C', textTransform: 'uppercase', display: 'block', marginBottom: 40 }}>
             Meet the Team
           </span>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 40 }}>
+          <div className="team-grid">
           {founders.map((f) => (
             <div key={f.name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 16 }}>
               <div style={{ width: 88, height: 88, borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>

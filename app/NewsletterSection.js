@@ -5,7 +5,7 @@ export default function NewsletterSection({ background = '#1A1815', line = '#3D3
     <div style={{
       position: 'relative', overflow: 'hidden', background,
       borderRadius: inset ? 12 : 0,
-      padding: inset ? '48px 40px' : '56px 56px',
+      padding: inset ? '48px var(--card-px)' : '56px var(--px)',
     }}>
       <GrainOverlay />
       <div style={{ position: 'relative', maxWidth: 440, margin: '0 auto', textAlign: 'center' }}>
@@ -52,7 +52,7 @@ export default function NewsletterSection({ background = '#1A1815', line = '#3D3
   }
 
   return (
-    <section style={{ position: 'relative', overflow: 'hidden', background: '#1A1815', padding: '48px 56px' }}>
+    <section style={{ position: 'relative', overflow: 'hidden', background: '#1A1815', padding: '48px var(--px)' }}>
       <GrainOverlay />
       <div style={{ position: 'relative', maxWidth: 1040, margin: '0 auto' }}>{box}</div>
     </section>

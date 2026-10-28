@@ -45,7 +45,7 @@ export default function WelcomePage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#F4F1EB' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', padding: '32px 56px' }}>
+      <nav style={{ display: 'flex', alignItems: 'center', padding: '24px var(--px)' }}>
         <span style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 18, color: '#1A1815', letterSpacing: '-0.01em' }}>
           O1 Collective
         </span>

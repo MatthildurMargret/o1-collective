@@ -61,7 +61,7 @@ export default function GeneralApplyPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#F4F1EB' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '32px 56px' }}>
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, padding: '24px var(--px)' }}>
         <Link href="/" style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 18, color: '#1A1815', letterSpacing: '-0.01em', textDecoration: 'none' }}>
           O1 Collective
         </Link>
@@ -70,7 +70,7 @@ export default function GeneralApplyPage() {
         </Link>
       </nav>
 
-      <main style={{ maxWidth: 560, margin: '0 auto', padding: '64px 48px 120px' }}>
+      <main style={{ maxWidth: 560, margin: '0 auto', padding: '64px var(--px-sm) 120px' }}>
         {done ? (
           <div>
             <p style={{ fontSize: 12, letterSpacing: '0.1em', color: '#A8A49C', textTransform: 'uppercase', margin: '0 0 16px' }}>Application received</p>
@@ -95,7 +95,7 @@ export default function GeneralApplyPage() {
             </div>
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 36 }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
+              <div className="form-grid-2">
                 <div>
                   <label style={labelStyle}>Full name</label>
                   <input type="text" required value={form.name} onChange={update('name')} style={inputStyle} />
@@ -106,7 +106,7 @@ export default function GeneralApplyPage() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
+              <div className="form-grid-2">
                 <div>
                   <label style={labelStyle}>Current role</label>
                   <input type="text" required value={form.role} onChange={update('role')} placeholder="Partner, Operator, Angel…" style={inputStyle} />

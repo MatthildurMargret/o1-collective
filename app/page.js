@@ -22,12 +22,12 @@ function Hero() {
   return (
     <section style={{
       background: '#F4F1EB',
-      padding: '48px 56px 80px',
+      padding: '48px var(--px) var(--py-80)',
     }}>
       <div style={{ maxWidth: 760 }}>
         <h1 style={{
           fontFamily: '"DM Serif Display", Georgia, serif',
-          fontSize: 'clamp(52px, 7vw, 80px)',
+          fontSize: 'clamp(34px, 9vw, 80px)',
           fontWeight: 400,
           color: '#1A1815',
           lineHeight: 1.08,
@@ -82,7 +82,7 @@ function Manifesto() {
     <section style={{
       position: 'relative',
       background: '#1A1815',
-      padding: '120px 56px',
+      padding: 'var(--py-120) var(--px)',
       overflow: 'hidden',
     }}>
       <GrainOverlay />
@@ -125,7 +125,7 @@ function WhatWeDo() {
   ]
 
   return (
-    <section style={{ background: '#F4F1EB', padding: '40px 56px 48px' }}>
+    <section style={{ background: '#F4F1EB', padding: '40px var(--px) 48px' }}>
       <div style={{ maxWidth: 1040, margin: '0 auto' }}>
         <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#A8A49C', textTransform: 'uppercase', display: 'block', marginBottom: 48 }}>
           What We Do
@@ -152,7 +152,7 @@ function WhatWeDo() {
 
 function MembershipTiers() {
   return (
-    <section id="membership" style={{ background: '#F4F1EB', padding: '40px 56px 120px' }}>
+    <section id="membership" style={{ background: '#F4F1EB', padding: '40px var(--px) var(--py-120)' }}>
       <div style={{ maxWidth: 640, margin: '0 auto 64px', textAlign: 'center' }}>
         <h2 style={{
           fontFamily: '"DM Serif Display", Georgia, serif',
@@ -165,12 +165,12 @@ function MembershipTiers() {
           Membership is by invitation or application. We're looking for ambitious European founders, operators, and investors committed to helping one another build generational companies.
         </p>
       </div>
-      <div style={{ maxWidth: 1040, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
+      <div className="tiers-grid" style={{ maxWidth: 1040, margin: '0 auto' }}>
 
         {/* Founder Circle */}
         <div style={{
           background: '#1A1815',
-          padding: '56px 48px',
+          padding: '56px var(--card-px)',
           display: 'flex', flexDirection: 'column',
           position: 'relative', overflow: 'hidden',
           borderRadius: 12,
@@ -216,7 +216,7 @@ function MembershipTiers() {
         {/* General Membership */}
         <div style={{
           background: '#EDEAE3',
-          padding: '56px 48px',
+          padding: '56px var(--card-px)',
           display: 'flex', flexDirection: 'column',
           borderRadius: 12,
         }}>
@@ -271,7 +271,7 @@ function WhoWeBringTogether() {
   ]
 
   return (
-    <section style={{ background: '#F4F1EB', padding: '48px 56px 120px' }}>
+    <section style={{ background: '#F4F1EB', padding: '48px var(--px) var(--py-120)' }}>
       <div style={{ maxWidth: 1040, margin: '0 auto' }}>
         <span style={{ fontSize: 11, letterSpacing: '0.12em', color: '#A8A49C', textTransform: 'uppercase', display: 'block', marginBottom: 48 }}>
           Who We Bring Together

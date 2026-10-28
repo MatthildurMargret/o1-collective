@@ -158,13 +158,13 @@ export default function LoginPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#F4F1EB', display: 'flex', flexDirection: 'column' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '32px 56px' }}>
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, padding: '24px var(--px)' }}>
         <Link href="/" style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: 18, color: '#1A1815', letterSpacing: '-0.01em', textDecoration: 'none' }}>
           O1 Collective
         </Link>
       </nav>
 
-      <main style={{ flex: 1, display: 'flex', alignItems: 'flex-start', padding: '80px 56px' }}>
+      <main style={{ flex: 1, display: 'flex', alignItems: 'flex-start', padding: 'var(--py-80) var(--px)' }}>
         <div style={{ width: '100%', maxWidth: 400 }}>
 
           {/* ── Step 1: Email ── */}
