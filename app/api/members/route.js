@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
 import { createClient as createServerClient } from '../../../lib/supabase-server'
+import { findApprovedMember } from '../../../lib/membership'
 
 function cleanCompany(raw) {
   if (!raw) return ''
@@ -16,6 +17,14 @@ export async function GET() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
+  // Being authenticated isn't the same as being an approved member — anyone can create a
+  // Supabase auth account directly against the public anon key. Re-verify approval here,
+  // the same way /api/profile and /api/profile/avatar do, before handing out the directory.
+  const member = await findApprovedMember(user.email)
+  if (!member) {
+    return NextResponse.json({ error: 'This account is not an approved O1 Collective member.' }, { status: 403 })
+  }
+
   let res
   try {
     res = await fetch('https://api.attio.com/v2/objects/people/records/query', {
@@ -25,7 +34,7 @@ export async function GET() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ limit: 500 }),
-      cache: 'no-store',
+      next: { revalidate: 60 },
     })
   } catch (err) {
     console.error('Attio request failed:', err.message)
